@@ -1,15 +1,43 @@
+// const { not } = require('joi');
 const Book = require('../models/book');
 
-// react version of: send all books in the db to FE
+// react version of: send all books that don't belong to the user to FE
 module.exports.index = async (req, res) => {
-    const books = await Book.find({}).populate('owner').sort({ title: 1 });
+    const currentUser = req.user._id;
+    const response = await Book.find({ owner: { $ne: currentUser } }).sort({ title: 1 });
+    const books = response.map(({ _id, title, author, isbn, image, blurb }) => (
+        // For initial display _id + imgage, for hoverinfo author + blurb needed, for search title + isbn + author needed
+        // for buttons (later not needed on index), owner needed
+        { _id, title, author, isbn, image, blurb, "owner": false }
+    ));
     res.send(books);
+    // Future version with decision making based on more vaiables:
+    // entry for did user already read this, is this on watchlist, gift/lending/permanentLend, available/dueDate
+    // { 
+    // _id,
+    //  title,
+    //  author,
+    //  isbn,
+    //  image,
+    //  blurb,
+    //  "owner": false,
+    //  "previouslyRead": true,
+    //  "watchlist": false,
+    //  "gift": false,
+    //  "lending": true,
+    //  "permanentLend": false,
+    //  "availabe": false,
+    //  "dueDate": 2023-12-15 
+    //  }
 };
 
-// react version of: send all books of a user in the db to FE
+// react version of: send all books of a user to FE
 module.exports.myIndex = async (req, res) => {
     const currentUser = req.user._id;
-    const books = await Book.find({ owner: currentUser }).populate('owner').sort({ title: 1 });
+    const response = await Book.find({ owner: currentUser }).sort({ title: 1 });
+    const books = response.map(({ _id, title, author, isbn, image, blurb }) => (
+        { _id, title, author, isbn, image, blurb, "owner": true }
+    ));
     res.send(books);
 };
 

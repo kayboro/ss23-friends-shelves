@@ -31,7 +31,6 @@ function BookShow({ book, user }) {
         <b>{book.title}</b>
         <p>{book.author}</p>
         <p>{book.isbn} </p>
-        <p>owned by: {book.owner.username}</p>
         <p>{book.blurb}</p>
     </div>
         ;
@@ -49,7 +48,7 @@ function BookShow({ book, user }) {
         </div>
 
 
-    if (book.owner._id !== user[0]._id) {
+    if (!book.owner) {
         actions = <></>
     }
 
