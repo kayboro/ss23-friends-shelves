@@ -70,7 +70,7 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
 
     // Esther: check the dueDate setting logic, so that its borrower and lender friendly when FE is up
     // logic for updating the request depending on the current situation
-    if (borrowingrequest.bookLocation === 'home' && status === 'backHome') {
+    if (borrowingrequest.bookLocation === 'home' && status === 'declined') {
         borrowingrequest.bookLocation = status;
         borrowingrequest.dueDate = reqTimestamp;
         pushMessage();

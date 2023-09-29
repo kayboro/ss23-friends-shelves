@@ -22,7 +22,7 @@ router.get('/mine',
 // Esther: get is not currently used, but should be useful once Alex established a show page for single books
 router.route('/:id')
     .get(
-        isLoggedIn,
+        // isLoggedIn,
         catchAsync(books.showBook))
     .put(
         isLoggedIn,

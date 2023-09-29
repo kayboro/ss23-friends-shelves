@@ -90,13 +90,15 @@ app.get('/', (req, res) => {
 
 // Esther: error handeling - revisit when FE is setup to deal with some error messages
 app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
+    // next(new ExpressError('Page Not Found', 404))
+    console.log('some down the list error');
 })
 
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh No, Something went wrong!';
-    res.status(statusCode).render('error', { err });
+    // res.status(statusCode).render('error', { err });
+    console.log('some down the list error');
 });
 
 // general configurations
