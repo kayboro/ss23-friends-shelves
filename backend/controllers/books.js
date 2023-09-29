@@ -122,11 +122,11 @@ module.exports.showBook = async (req, res) => {
         book.owner = false;
         book.borrowingrequests = [reqUsersLastBorrowingrequest];
         book.ownerId =
-            reqUsersLastBorrowingrequest.bookLocation !== ('home' && 'declined')
-                ? response.owner._id : '';
+            ['home', 'declined'].includes(reqUsersLastBorrowingrequest.bookLocation)
+                ? '' : response.owner._id;
         book.ownerUsername =
-            reqUsersLastBorrowingrequest.bookLocation !== ('home' && 'declined')
-                ? response.owner.username : '';
+            ['home', 'declined'].includes(reqUsersLastBorrowingrequest.bookLocation)
+                ? '' : response.owner.username;
     } else {
         book.owner = false;
     };
