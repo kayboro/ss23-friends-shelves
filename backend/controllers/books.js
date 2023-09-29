@@ -86,8 +86,8 @@ module.exports.createBook = async (req, res, next) => {
 // Esther to Alex: Also toggle on isLogged in in the routes, once you start using this at the FE
 module.exports.showBook = async (req, res) => {
     // const requserid = '64f09610fcc82a3f318948fc';
-    // const requserid = '64f0969dfcc82a3f3189491a';
-    const requserid = '64f096b7fcc82a3f31894921';
+    const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
     // Esther to Alex: comment the above 3 line3 and uncomment the following line - I'll then do the clean up, when the FE stands
     // const requserid = req.user._id;
     const response = await Book.findById(req.params.id).populate('borrowingrequests').populate('owner');
@@ -106,12 +106,12 @@ module.exports.showBook = async (req, res) => {
         available:
             response.borrowingrequests.length === 0
                 ||
-                response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation === ('backHome' && 'declined')
+                ['backHome', 'declined'].includes(response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation)
                 ? true : false,
         dueDate:
             response.borrowingrequests.length === 0
                 ||
-                response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation === ('backHome' && 'declined')
+                ['backHome', 'declined'].includes(response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation)
                 ? '' : response.borrowingrequests[response.borrowingrequests.length - 1].dueDate
     };
 
