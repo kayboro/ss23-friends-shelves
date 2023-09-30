@@ -45,7 +45,9 @@ BookSchema.post('findOneAndDelete', async function (doc) {
             _id: {
                 $in: doc.borrowingrequests
             }
-        })
+        });
+        // delete borrowingrequest from user requestlog, when the book is deleted
+        // await User.findByIdAndUpdate(requserid, { $pull: { requestlog: borrowingrequestId } });
     }
 });
 

@@ -1,4 +1,5 @@
 const Book = require('../models/book');
+const User = require('../models/user');
 const Borrowingrequest = require('../models/borrowingrequest');
 
 // create a borrowingrequest
@@ -20,6 +21,9 @@ module.exports.createBorrowingrequest = async (req, res) => {
     book.borrowingrequests.push(borrowingrequest);
     await borrowingrequest.save();
     await book.save();
+    const user = await User.findById(requserid);
+    user.requestlog.push(borrowingrequest);
+    await user.save();
     const response = await Book.findById(id).populate('borrowingrequests');
     const updatedBook = {
         _id: response._id, title: response.title, author: response.author, isbn: response.isbn, image: response.image, blurb: response.blurb,
@@ -35,12 +39,18 @@ module.exports.createBorrowingrequest = async (req, res) => {
 
 module.exports.deleteBorrowingrequest = async (req, res) => {
     const { id, borrowingrequestId } = req.params;
+    // const { requserid } = req.body;
+    // // Esther to Alex: comment above, uncomment below
+    // // const requserid = req.user._id;
     await Book.findByIdAndUpdate(id, { $pull: { borrowingrequests: borrowingrequestId } });
+    // use request.borrower to find the user
+    // await User.findByIdAndUpdate(requserid, { $pull: { requestlog: borrowingrequestId } });
     await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
     // req.flash('success', 'Successfully deleted the borrowing request!');
     // res.redirect(`/books/${id}`);
     res.send('you deleted the borrowing request');
 };
+
 
 // handle post request to a specific borrowingrequest
 module.exports.handlePostBorrowingrequest = async (req, res) => {
