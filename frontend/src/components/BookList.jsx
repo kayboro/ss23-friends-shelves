@@ -21,10 +21,10 @@ function BookList() {
         });
     }
 
-    let pageTitle = 'Your Bookshelf';
+    let pageTitle = `${loggedInUser[0].username}'s Bookshelf`;
 
     if (showBooks === "all") {
-        pageTitle = 'All Books';
+        pageTitle = 'Browse Books - that are not on your bookshelf';
     }
 
     return (<div>

@@ -16,10 +16,18 @@ module.exports.createBorrowingrequest = async (req, res) => {
     borrowingrequest.bookLocation = status;
     borrowingrequest.dueDate = dueDate;
     borrowingrequest.textlog.push({ messageText: message, messageWriter: 'b', messageTimestamp: reqTimestamp });
+    borrowingrequest.bookLocationLog.push({ newBookLocation: status, bookLocationChanger: 'b', entryTimestamp: reqTimestamp });
     book.borrowingrequests.push(borrowingrequest);
     await borrowingrequest.save();
     await book.save();
-    const updatedBook = await Book.findById(id).populate('borrowingrequests');
+    const response = await Book.findById(id).populate('borrowingrequests');
+    const updatedBook = {
+        _id: response._id, title: response.title, author: response.author, isbn: response.isbn, image: response.image, blurb: response.blurb,
+        available: false,
+        dueDate: dueDate,
+        owner: false,
+        borrowingrequests: [borrowingrequest]
+    };
     // req.flash('success', 'Created new review!');
     // res.redirect(`/books/${id}`);
     res.send(updatedBook);
@@ -50,6 +58,10 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
             borrowingrequest.textlog.push({ messageText: message, messageWriter: book.owner.equals(requserid) ? 'l' : 'b', messageTimestamp: reqTimestamp });
         };
     };
+    const pushBookLocationChange = () => {
+        borrowingrequest.bookLocationLog.push({ newBookLocation: status, bookLocationChanger: book.owner.equals(requserid) ? 'l' : 'b', entryTimestamp: reqTimestamp });
+    };
+
     // some logic that only allows dueDate adjustment for dueDates that lie in the future 
     // and prevent L to set dueDate in transferBtoL previous of the reqTimestampPlus3days
     const setDueDate = () => {
@@ -70,34 +82,40 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
 
     // Esther: check the dueDate setting logic, so that its borrower and lender friendly when FE is up
     // logic for updating the request depending on the current situation
-    if (borrowingrequest.bookLocation === 'home' && status === 'backHome') {
+    if (borrowingrequest.bookLocation === 'home' && status === 'declined') {
         borrowingrequest.bookLocation = status;
         borrowingrequest.dueDate = reqTimestamp;
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === 'home' && status === 'transferLtoB' && book.owner.equals(requserid)) {
         borrowingrequest.bookLocation = status;
         setDueDate();
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === 'transferLtoB' && status === 'atB' && borrowingrequest.borrower.equals(requserid)) {
         borrowingrequest.bookLocation = status;
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === 'atB' && status === 'transferBtoL' && borrowingrequest.borrower.equals(requserid)) {
         borrowingrequest.bookLocation = status;
         borrowingrequest.dueDate = reqTimestamp;
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === 'atB' && status === 'transferBtoL' && book.owner.equals(requserid)) {
         borrowingrequest.bookLocation = status;
         const reqTimestampPlus3days = new Date(reqTimestamp.setDate(reqTimestamp.getDate() + 3));
         borrowingrequest.dueDate = reqTimestampPlus3days;
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === 'transferBtoL' && status === 'backHome' && book.owner.equals(requserid)) {
         borrowingrequest.bookLocation = status;
         pushMessage();
+        pushBookLocationChange();
         await borrowingrequest.save();
     } else if (borrowingrequest.bookLocation === status && book.owner.equals(requserid)) {
         setDueDate();
@@ -111,6 +129,17 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
         // return res.redirect('/books/:id');
         console.log('next try')
     };
-    const updatedbook = await Book.findById(id).populate('borrowingrequests');
-    res.send(updatedbook);
+    const response = await Book.findById(id).populate('borrowingrequests');
+    const updatedBook = {
+        _id: response._id, title: response.title, author: response.author, isbn: response.isbn, image: response.image, blurb: response.blurb,
+        available:
+            ['backHome', 'declined'].includes(response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation)
+                ? true : false,
+        dueDate:
+            ['backHome', 'declined'].includes(response.borrowingrequests[response.borrowingrequests.length - 1].bookLocation)
+                ? '' : response.borrowingrequests[response.borrowingrequests.length - 1].dueDate,
+        owner: book.owner.equals(requserid) ? true : false,
+        borrowingrequests: book.owner.equals(requserid) ? response.borrowingrequests : [borrowingrequest]
+    };
+    res.send(updatedBook);
 };

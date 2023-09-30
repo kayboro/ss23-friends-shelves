@@ -39,9 +39,9 @@ function BookShow({ book, user }) {
     let content = <div key={book._id}>
         <p><img className='bookCover' src={book.image} /></p>
         <b>{book.title}</b>
+        {book.available === true ? <p>currently avalilable </p> : <p> availabe: {book.dueDate}</p>}
         <p>{book.author}</p>
         <p>{book.isbn} </p>
-        <p>owned by: {book.owner.username}</p>
         <p>{book.blurb}</p>
     </div>
         ;
@@ -59,7 +59,7 @@ function BookShow({ book, user }) {
         </div>
 
 
-    if (book.owner._id !== user[0]._id) {
+    if (!book.owner) {
         actions =<div className="actions">
         <p>
             <button className="borrow" onClick={handleLendClick}>

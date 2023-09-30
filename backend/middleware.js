@@ -116,7 +116,7 @@ module.exports.bookHasOngoingBorrowingrequest = async (req, res, next) => {
     const book = await Book.findById(id).populate('borrowingrequests');
     if (book.borrowingrequests.length !== 0) {
         const indexLastBorrowingrequest = book.borrowingrequests.length - 1;
-        if (book.borrowingrequests[indexLastBorrowingrequest].bookLocation === 'backHome') {
+        if (['backHome', 'declined'].includes(book.borrowingrequests[indexLastBorrowingrequest].bookLocation)) {
             return next();
         } else {
             // req.flash('error', 'your borrowingrequest failed, because the book is currently not at the lender.');
