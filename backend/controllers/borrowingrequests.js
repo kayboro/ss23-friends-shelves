@@ -51,6 +51,20 @@ module.exports.deleteBorrowingrequest = async (req, res) => {
     res.send('you deleted the borrowing request');
 };
 
+module.exports.deleteAllBorrowingrequest = async (req, res) => {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+    if (book.borrowingrequests) {
+        for (const borrowingrequestId of book.borrowingrequests) {
+            await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
+        }
+    };
+    book.borrowingrequests = [];
+    await book.save();
+    const updatedBook = await Book.findById(id);
+    res.send(updatedBook);
+};
+
 
 // handle post request to a specific borrowingrequest
 module.exports.handlePostBorrowingrequest = async (req, res) => {
