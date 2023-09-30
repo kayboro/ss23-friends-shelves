@@ -1,12 +1,14 @@
 import BookEdit from './BookEdit';
 import { useState, useContext } from 'react';
 import BooksContext from '../context/books';
+import BorrowLendContext from '../context/borrowLend';
 
 
 
 function BookShow({ book, user }) {
 
     const { deleteBookById } = useContext(BooksContext);
+    const { handleLend, cancelLend } = useContext(BorrowLendContext);
 
     //Handle the edit menu for every book
     const [showEdit, setShowEdit] = useState(false);
@@ -22,6 +24,14 @@ function BookShow({ book, user }) {
     //Handle submissions for edits
     const handleSubmit = () => {
         setShowEdit(false);
+    }
+
+    const handleLendClick = () => {
+        handleLend(book._id);
+    }
+
+    const handleCancelCLick = () => {
+        cancelLend(book._id);
     }
 
     //Show the book as object
@@ -50,9 +60,18 @@ function BookShow({ book, user }) {
 
 
     if (book.owner._id !== user[0]._id) {
-        actions = <></>
+        actions =<div className="actions">
+        <p>
+            <button className="borrow" onClick={handleLendClick}>
+                Borrow
+            </button>
+            <button className="cancel" onClick={handleCancelCLick}>
+                Cancel Borrow
+            </button>
+        </p>
+    </div>
     }
-
+    
     //if edit button has been pressed, show edit menu for set book
     if (showEdit) {
         // Esther to Alex: in BookEdit you don't actually read the user in and you don't need it for any logic

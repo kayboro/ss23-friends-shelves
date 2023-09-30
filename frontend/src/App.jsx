@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import axios from 'axios';
 
 import BookCreate from './components/BookCreate';
 import BookList from './components/BookList';
@@ -9,6 +10,7 @@ import LoginRegisterForm from './components/LoginRegister/LoginRegisterForm';
 import BooksContext from './context/books';
 import UserContext from './context/user';
 import NavigationContext from './context/navigation';
+import BorrowLendContext from './context/borrowLend';
 
 import './App.css';
 
@@ -19,12 +21,13 @@ function App() {
   const { handleFetchBooks, setBooks } = useContext(BooksContext);
   const { loggedIn, showLogin, handleLogout, handleLogin } = useContext(UserContext);
   const { currentPath, navigate } = useContext(NavigationContext);
+  
 
-  useEffect(() => {
-    if (loggedIn === true) {
-      handleFetchBooks("mine");
-    }
-  }, [loggedIn])
+  // useEffect(() => {
+  //   if (loggedIn === true) {
+  //     handleFetchBooks("mine");
+  //   }
+  // }, [loggedIn])
 
   useEffect(() => {
     if (currentPath === "/allbooks") {
@@ -55,6 +58,10 @@ function App() {
     navigate("/mybooks");
     handleLogin("bodo", "bodo");
   };
+
+  
+
+  
 
   let showPage = <div>
     <NavBar />

@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 const UserContext = createContext();
@@ -28,6 +29,7 @@ function Provider({ children }) {
   const handleLogin = async (username, password) => {
     const response = await axios.post('http://localhost:8080/login', { username, password }, { withCredentials: true });
     const user = response.data;
+    console.log(user);
     userLoginSateChanges(user);
   };
 
@@ -43,7 +45,16 @@ function Provider({ children }) {
     setShowLogin(true);
     setLoggedIn(false);
     setLoggedInUser([]);
+    checkLoggedIn;
   };
+
+  const checkLoggedIn = async () => {
+    const response = await axios.get('http://localhost:8080/', { withCredentials: true });
+    if (response){
+      console.log('Succes!');
+    }
+  }
+
 
 
   const valueToShare = {

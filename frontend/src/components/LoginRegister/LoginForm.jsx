@@ -24,8 +24,10 @@ function LoginForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/mybooks");
         handleLogin(formData.username, formData.password);
+        setFormData({ username: "", password: "" });
+        navigate("/mybooks");
+        
     };
 
     //Login form
