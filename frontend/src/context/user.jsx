@@ -29,19 +29,19 @@ function Provider({ children }) {
   const handleLogin = async (username, password) => {
     const response = await axios.post('http://localhost:8080/login', { username, password }, { withCredentials: true });
     const user = response.data;
-    console.log(user);
     userLoginSateChanges(user);
   };
 
   const handleRegister = async (username, email, password) => {
     const response = await axios.post('http://localhost:8080/register', { username, email, password }, { withCredentials: true })
     const user = response.data;
-    // userLoginSateChanges(user) automatic login upon registering is broken, have to do bugfix;
+    userLoginSateChanges(user)
   }
 
   // Logout function to set all States back to 0
   const handleLogout = async () => {
     const response = await axios.get('http://localhost:8080/logout', { withCredentials: true });
+    console.log(response);
     setShowLogin(true);
     setLoggedIn(false);
     setLoggedInUser([]);
@@ -53,6 +53,7 @@ function Provider({ children }) {
     if (response){
       console.log('Succes!');
     }
+    return response
   }
 
 
@@ -65,6 +66,7 @@ function Provider({ children }) {
     handleLogout,
     handleRegister,
     userLoginSateChanges,
+    checkLoggedIn,
 
   }
 

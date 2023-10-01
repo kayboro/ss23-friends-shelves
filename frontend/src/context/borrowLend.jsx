@@ -8,7 +8,7 @@ function BorrowLendProvider({ children }){
   let borrowingrequestsID = "";
 
   const handleLend = async (bookIDNumber) => {
-  const userID = "64f09610fcc82a3f318948fc"
+  const userID = "64f0969dfcc82a3f3189491a"
   console.log(bookIDNumber);
     
     try{
@@ -23,6 +23,8 @@ function BorrowLendProvider({ children }){
       const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
       console.log(response);
       borrowingrequestsID = response.data.borrowingrequests[0]._id
+      const responseBook = await axios.get(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
+      console.log(responseBook);
     } catch (e) {
       console.log(e)
       };
@@ -30,7 +32,7 @@ function BorrowLendProvider({ children }){
 
   const cancelLend = async (bookIDNumber) => {
 
-    const userID = "64f09610fcc82a3f318948fc"
+    const userID = "64f0969dfcc82a3f3189491a"
     
     try{
       const input = {
@@ -40,7 +42,7 @@ function BorrowLendProvider({ children }){
           message: "sorry missclicked",
           }
       };
-      const response = await axios.delete(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingrequestsID}`, input, { withCredentials: true });
+      const response = await axios.delete(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/`, input, { withCredentials: true });
       console.log(response);
     } catch (e) {
       console.log(e)

@@ -37,7 +37,7 @@ function BookShow({ book, user }) {
     //Show the book as object
     // let content = <div key={book._id}><p><img className='bookCover' src={bookImage} /></p><b>{book.title}</b><p>{book.author}</p>{book.ISBN}<p>{bookInLibrary}</p>{book.blurb}</div>
     let content = <div key={book._id}>
-        <p><img className='bookCover' src={book.image} /></p>
+        <p><img className='bookCover' src={book.image}/></p>
         <b>{book.title}</b>
         {book.available === true ? <p>currently avalilable </p> : <p> availabe: {book.dueDate}</p>}
         <p>{book.author}</p>

@@ -4,12 +4,14 @@ const { validateBorrowingrequest, isLoggedIn, isOwner, isNotOwner, borrowingrequ
 const catchAsync = require('../utils/catchAsync');
 const borrowingrequests = require('../controllers/borrowingrequests');
 
-router.post('/',
-    // isLoggedIn,
-    validateBorrowingrequest,
-    // catchAsync(isNotOwner),
-    bookHasOngoingBorrowingrequest,
-    catchAsync(borrowingrequests.createBorrowingrequest));
+router.route('/')
+    .post(    
+        // isLoggedIn,
+        validateBorrowingrequest,
+        // catchAsync(isNotOwner),
+        bookHasOngoingBorrowingrequest,
+        catchAsync(borrowingrequests.createBorrowingrequest))
+    .delete(catchAsync(borrowingrequests.deleteAllBorrowingrequest));
 
 router.route('/:borrowingrequestId')
     .post(
