@@ -22,7 +22,9 @@ module.exports.createBorrowingrequest = async (req, res) => {
     await book.save();
     const user = await User.findById(requserid);
     user.requestlog.push(borrowingrequest);
-    user.watchlist.push(id);
+    if (!user.watchlist.includes(id)) {
+        user.watchlist.push(id);
+    }
     await user.save();
     const response = await Book.findById(id).populate('borrowingrequests');
     const updatedBook = {
@@ -140,6 +142,16 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
         pushMessage();
         pushBookLocationChange();
         await borrowingrequest.save();
+        const user = await User.findById(borrowingrequest.borrower);
+        if (!user.knownBooks.includes(id)) {
+            console.log('hit known');
+            user.knownBooks.push(id);
+        };
+        if (user.watchlist.includes(id)) {
+            console.log('hit known');
+            user.watchlist.pull(id);
+        };
+        await user.save();
     } else if (borrowingrequest.bookLocation === status && book.owner.equals(requserid)) {
         setDueDate();
         pushMessage();

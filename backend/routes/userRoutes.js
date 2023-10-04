@@ -23,6 +23,10 @@ router.get('/myWatchlist',
     // isLoggedIn,
     catchAsync(users.myWatchlist));
 
+router.get('/myKnownBooks',
+    // isLoggedIn,
+    catchAsync(users.myKnownBooks));
+
 router.get('/logout', users.logout);
 
 module.exports = router;

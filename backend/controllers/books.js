@@ -172,6 +172,38 @@ module.exports.removeBookFromWatchlist = async (req, res) => {
     res.send(user.watchlist);
 };
 
+module.exports.addBookToKnownBooks = async (req, res) => {
+    const { id } = req.params;
+    const requserid = '64f09610fcc82a3f318948fc';
+    //  const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
+    // Esther to Alex: comment the above 3 line3 and uncomment the following line
+    // const requserid = req.user._id;
+    const user = await User.findById(requserid);
+    if (user.knownBooks.includes(id)) {
+        return res.send('you already have this book on your list of already read books!')
+    }
+    user.knownBooks.push(id);
+    await user.save();
+    res.send(user);
+};
+
+module.exports.removeBookFromKnownBooks = async (req, res) => {
+    const { id } = req.params;
+    const requserid = '64f09610fcc82a3f318948fc';
+    //  const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
+    // Esther to Alex: comment the above 3 line3 and uncomment the following line
+    // const requserid = req.user._id;
+    const user = await User.findById(requserid);
+    if (!user.knownBooks.includes(id)) {
+        return res.send("you don't have this book on your list of books you have read - there is nothing to remove!")
+    }
+    user.knownBooks.pull(id);
+    await user.save();
+    res.send(user.knownBooks);
+};
+
 // react version of: deleting a book
 module.exports.deleteBook = async (req, res) => {
     const { id } = req.params;
@@ -190,6 +222,12 @@ module.exports.deleteBook = async (req, res) => {
     const watchlistUsers = await User.find({ watchlist: { $in: id } });
     for (user of watchlistUsers) {
         user.watchlist.pull(id);
+        await user.save();
+    };
+
+    const knownBooksUsers = await User.find({ knownBooks: { $in: id } });
+    for (user of knownBooksUsers) {
+        user.knownBooks.pull(id);
         await user.save();
     };
 

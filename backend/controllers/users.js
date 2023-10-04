@@ -77,8 +77,8 @@ module.exports.myWatchlist = async (req, res) => {
     // Esther to Alex: comment the above 3 line3 and uncomment the following line
     // const requserid = req.user._id;
     const user = await User.findById(requserid);
-    const response = await Book.find({ _id: { $in: user.watchlist } }).populate('borrowingrequests');
-    const books = response.map(({ _id, title, author, isbn, image, blurb, borrowingrequests }) => (
+    const response = await Book.find({ _id: { $in: user.watchlist } }).populate('borrowingrequests').populate('owner');
+    const books = response.map(({ _id, title, author, isbn, image, owner, blurb, borrowingrequests }) => (
         {
             _id, title, author, isbn, image, blurb,
             "owner": false,
@@ -96,11 +96,56 @@ module.exports.myWatchlist = async (req, res) => {
             [
                 borrowingrequests.map(({ borrower }) => (borrower))
                     .findLastIndex((borrowerId) => borrowerId.equals(requserid))
-            ]
+            ],
+            ownerId:
+                ['home', 'declined'].includes(borrowingrequests.bookLocation)
+                    ? '' : owner._id,
+            ownerUsername:
+                ['home', 'declined'].includes(borrowingrequests.bookLocation)
+                    ? '' : owner.username
         }
     ));
     res.send(books)
 };
+
+module.exports.myKnownBooks = async (req, res) => {
+    const requserid = '64f09610fcc82a3f318948fc';
+    // const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
+    // Esther to Alex: comment the above 3 line3 and uncomment the following line
+    // const requserid = req.user._id;
+    const user = await User.findById(requserid);
+    const response = await Book.find({ _id: { $in: user.knownBooks } }).populate('borrowingrequests').populate('owner');
+    const books = response.map(({ _id, title, author, isbn, image, owner, blurb, borrowingrequests }) => (
+        {
+            _id, title, author, isbn, image, blurb,
+            "owner": owner.equals(requserid) ? true : false,
+            available:
+                borrowingrequests.length === 0
+                    ||
+                    borrowingrequests[borrowingrequests.length - 1].bookLocation === ('backHome' && 'declined')
+                    ? true : false,
+            dueDate:
+                borrowingrequests.length === 0
+                    ||
+                    borrowingrequests[borrowingrequests.length - 1].bookLocation === ('backHome' && 'declined')
+                    ? '' : borrowingrequests[borrowingrequests.length - 1].dueDate,
+            borrowingrequests: borrowingrequests
+            [
+                borrowingrequests.map(({ borrower }) => (borrower))
+                    .findLastIndex((borrowerId) => borrowerId.equals(requserid))
+            ],
+            ownerId:
+                ['home', 'declined'].includes(borrowingrequests.bookLocation)
+                    ? '' : owner._id,
+            ownerUsername:
+                ['home', 'declined'].includes(borrowingrequests.bookLocation)
+                    ? '' : owner.username
+        }
+    ));
+    res.send(books)
+};
+
 
 
 

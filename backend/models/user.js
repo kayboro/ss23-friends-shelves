@@ -14,7 +14,7 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Book',
     }],
-    readBooks: [{
+    knownBooks: [{
         type: Schema.Types.ObjectId,
         ref: 'Book',
     }],

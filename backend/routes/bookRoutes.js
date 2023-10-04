@@ -48,4 +48,16 @@ router.route('/:id/watchlist')
         // isNotOwner,
         catchAsync(books.removeBookFromWatchlist));
 
+router.route('/:id/knownBooks')
+    .get(
+        // isLoggedIn,
+        bookIsInDB,
+        // isNotOwner,
+        catchAsync(books.addBookToKnownBooks))
+    .delete(
+        // isLoggedIn,
+        bookIsInDB,
+        // isNotOwner,
+        catchAsync(books.removeBookFromKnownBooks));
+
 module.exports = router;
