@@ -75,9 +75,6 @@ module.exports.showBook = async (req, res) => {
     // Esther to Alex: comment the above 3 line3 and uncomment the following line - I'll then do the clean up, when the FE stands
     // const requserid = req.user._id;
     const response = await Book.findById(req.params.id).populate('borrowingrequests').populate('owner');
-    if (!response)
-        // req.flash('error', 'Cannot find that book!');
-        return res.send('book not found');
 
     const reqUsersLastBorrowingrequest =
         response.borrowingrequests[
@@ -142,10 +139,44 @@ module.exports.updateBook = async (req, res) => {
     res.send(book);
 };
 
+// Esther ToDo: make two functions for add and remove book from list to use generic for all "lists"
+module.exports.addBookToWatchlist = async (req, res) => {
+    const { id } = req.params;
+    const requserid = '64f09610fcc82a3f318948fc';
+    //  const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
+    // Esther to Alex: comment the above 3 line3 and uncomment the following line
+    // const requserid = req.user._id;
+    const user = await User.findById(requserid);
+    if (user.watchlist.includes(id)) {
+        return res.send('you already have this book on your watchlist!')
+    }
+    user.watchlist.push(id);
+    await user.save();
+    res.send(user);
+};
+
+module.exports.removeBookFromWatchlist = async (req, res) => {
+    const { id } = req.params;
+    const requserid = '64f09610fcc82a3f318948fc';
+    //  const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f096b7fcc82a3f31894921';
+    // Esther to Alex: comment the above 3 line3 and uncomment the following line
+    // const requserid = req.user._id;
+    const user = await User.findById(requserid);
+    if (!user.watchlist.includes(id)) {
+        return res.send("you don't have this book on your watchlist - there is nothing to remove!")
+    }
+    user.watchlist.pull(id);
+    await user.save();
+    res.send(user.watchlist);
+};
+
 // react version of: deleting a book
 module.exports.deleteBook = async (req, res) => {
     const { id } = req.params;
     const book = await Book.findById(id);
+
     if (book.borrowingrequests) {
         for (const borrowingrequestId of book.borrowingrequests) {
             const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
@@ -155,6 +186,13 @@ module.exports.deleteBook = async (req, res) => {
             await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
         }
     };
+
+    const watchlistUsers = await User.find({ watchlist: { $in: id } });
+    for (user of watchlistUsers) {
+        user.watchlist.pull(id);
+        await user.save();
+    };
+
     await Book.findByIdAndDelete(id);
     // req.flash('success', 'Successfully deleted a book!');
     res.send('Successfully deleted a book!');

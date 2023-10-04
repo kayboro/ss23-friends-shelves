@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const books = require('../controllers/books');
-const { isLoggedIn, validateBook, isOwner } = require('../middleware');
+const { isLoggedIn, validateBook, isOwner, bookIsInDB, isNotOwner } = require('../middleware');
 
 
 
@@ -19,19 +19,33 @@ router.get('/mine',
     isLoggedIn,
     catchAsync(books.myIndex));
 
-// Esther: get is not currently used, but should be useful once Alex established a show page for single books
 router.route('/:id')
     .get(
         // isLoggedIn,
+        bookIsInDB,
         catchAsync(books.showBook))
     .put(
         isLoggedIn,
+        bookIsInDB,
         catchAsync(isOwner),
         validateBook,
         catchAsync(books.updateBook))
     .delete(
-        isLoggedIn,
-        catchAsync(isOwner),
+        // isLoggedIn,
+        bookIsInDB,
+        // catchAsync(isOwner),
         catchAsync(books.deleteBook));
+
+router.route('/:id/watchlist')
+    .get(
+        // isLoggedIn,
+        bookIsInDB,
+        // isNotOwner,
+        catchAsync(books.addBookToWatchlist))
+    .delete(
+        // isLoggedIn,
+        bookIsInDB,
+        // isNotOwner,
+        catchAsync(books.removeBookFromWatchlist));
 
 module.exports = router;

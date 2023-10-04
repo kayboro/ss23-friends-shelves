@@ -19,6 +19,10 @@ router.get('/myRequests',
     // isLoggedIn,
     catchAsync(users.myBorrowingRequestLog));
 
+router.get('/myWatchlist',
+    // isLoggedIn,
+    catchAsync(users.myWatchlist));
+
 router.get('/logout', users.logout);
 
 module.exports = router;

@@ -8,12 +8,11 @@ module.exports.createBorrowingrequest = async (req, res) => {
     const { id } = req.params;
     const book = await Book.findById(id);
     const { requserid, status, message, dueDate } = req.body.borrowingrequest;
-    // Esther to Alex: comment above, uncomment below
+    // Esther to Alex: comment 1 above, uncomment 2 below
     // const {status, message, dueDate } = req.body.borrowingrequest;
+    // const requserid = req.user._id;
     const borrowingrequest = new Borrowingrequest();
     borrowingrequest.borrower = requserid;
-    // Esther to Alex: comment above, uncomment below
-    // borrowingrequest.borrower = req.user._id;
     borrowingrequest.bookLocation = status;
     borrowingrequest.dueDate = dueDate;
     borrowingrequest.textlog.push({ messageText: message, messageWriter: 'b', messageTimestamp: reqTimestamp });
@@ -23,6 +22,7 @@ module.exports.createBorrowingrequest = async (req, res) => {
     await book.save();
     const user = await User.findById(requserid);
     user.requestlog.push(borrowingrequest);
+    user.watchlist.push(id);
     await user.save();
     const response = await Book.findById(id).populate('borrowingrequests');
     const updatedBook = {

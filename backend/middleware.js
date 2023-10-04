@@ -36,6 +36,16 @@ module.exports.validateBook = (req, res, next) => {
     }
 };
 
+// checks if book is in DB
+module.exports.bookIsInDB = async (req, res, next) => {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+    if (book) {
+        return next();
+    };
+    return res.send("book doesn't exist");
+};
+
 // Esther: revisit when session is working
 module.exports.isOwner = async (req, res, next) => {
     const { id } = req.params;
