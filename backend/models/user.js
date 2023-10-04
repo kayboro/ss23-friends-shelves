@@ -20,8 +20,8 @@ const UserSchema = new Schema({
     }],
     requestlog: [{
         type: Schema.Types.ObjectId,
-        ref: 'Boorrowingrequest',
-    }],
+        ref: 'Borrowingrequest',
+    }]
 });
 UserSchema.plugin(passportLocalMongoose);
 

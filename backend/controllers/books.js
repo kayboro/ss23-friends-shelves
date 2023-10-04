@@ -1,5 +1,7 @@
 // const { not } = require('joi');
 const Book = require('../models/book');
+const User = require('../models/user');
+const Borrowingrequest = require('../models/borrowingrequest');
 
 // react version of: send all books that don't belong to the user to FE
 module.exports.index = async (req, res) => {
@@ -23,24 +25,6 @@ module.exports.index = async (req, res) => {
         }
     ));
     res.send(books);
-    // Future version with decision making based on more vaiables:
-    // entry for did user already read this, is this on watchlist, gift/lending/permanentLend, available/dueDate
-    // { 
-    // _id,
-    //  title,
-    //  author,
-    //  isbn,
-    //  image,
-    //  blurb,
-    //  "owner": false,
-    //  "previouslyRead": true,
-    //  "watchlist": false,
-    //  "gift": false,
-    //  "lending": true,
-    //  "permanentLend": false,
-    //  "availabe": false,
-    //  "dueDate": 2023-12-15 
-    //  }
 };
 
 // react version of: send all books of a user to FE
@@ -161,9 +145,17 @@ module.exports.updateBook = async (req, res) => {
 // react version of: deleting a book
 module.exports.deleteBook = async (req, res) => {
     const { id } = req.params;
+    const book = await Book.findById(id);
+    if (book.borrowingrequests) {
+        for (const borrowingrequestId of book.borrowingrequests) {
+            const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
+            await User.findByIdAndUpdate(borrowingrequest.borrower, { $pull: { requestlog: borrowingrequestId } });
+            // The next line might not be necessary, cause there is something on the book model 
+            // that also clears out all requests on the book from the db upon deletion
+            await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
+        }
+    };
     await Book.findByIdAndDelete(id);
     // req.flash('success', 'Successfully deleted a book!');
     res.send('Successfully deleted a book!');
 };
-
-

@@ -39,12 +39,9 @@ module.exports.createBorrowingrequest = async (req, res) => {
 
 module.exports.deleteBorrowingrequest = async (req, res) => {
     const { id, borrowingrequestId } = req.params;
-    // const { requserid } = req.body;
-    // // Esther to Alex: comment above, uncomment below
-    // // const requserid = req.user._id;
+    const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
     await Book.findByIdAndUpdate(id, { $pull: { borrowingrequests: borrowingrequestId } });
-    // use request.borrower to find the user
-    // await User.findByIdAndUpdate(requserid, { $pull: { requestlog: borrowingrequestId } });
+    await User.findByIdAndUpdate(borrowingrequest.borrower, { $pull: { requestlog: borrowingrequestId } });
     await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
     // req.flash('success', 'Successfully deleted the borrowing request!');
     // res.redirect(`/books/${id}`);
@@ -56,6 +53,8 @@ module.exports.deleteAllBorrowingrequest = async (req, res) => {
     const book = await Book.findById(id);
     if (book.borrowingrequests) {
         for (const borrowingrequestId of book.borrowingrequests) {
+            const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
+            await User.findByIdAndUpdate(borrowingrequest.borrower, { $pull: { requestlog: borrowingrequestId } });
             await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
         }
     };
@@ -167,3 +166,4 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
     };
     res.send(updatedBook);
 };
+
