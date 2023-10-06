@@ -9,6 +9,7 @@ function NavBar() {
         const links =[
                 { label: 'All books', path: '/allbooks', image: bookShelves},
                 { label: 'My books', path: '/mybooks', image: bookImage},
+                { label: 'Borrowlog', path: '/borrowlog', image: logout},
                 { label: 'Logout', path: '/logout', image: logout},
         ];
 

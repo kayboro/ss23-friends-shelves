@@ -1,10 +1,11 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 
 import BookCreate from './components/BookCreate';
 import BookList from './components/BookList';
 import BookSearch from './components/BookSearch';
 import NavBar from './components/Navigation/NavBar';
 import LoginRegisterForm from './components/LoginRegister/LoginRegisterForm';
+import BookShowSingle from './components/BookShowSingle';
 
 import BooksContext from './context/books';
 import UserContext from './context/user';
@@ -19,19 +20,28 @@ function App() {
   const { handleFetchBooks, setBooks } = useContext(BooksContext);
   const { showLogin, handleLogout, handleLogin, checkLoggedIn } = useContext(UserContext);
   const { currentPath, navigate } = useContext(NavigationContext);
+  const [showSingle, setShowSingle ] = useState(false);
+
   
 
   useEffect(() => {
     if (currentPath === "/allbooks") {
       handleFetchBooks("");
+      setShowSingle(false);
     }
     else if (currentPath === "/mybooks") {
       handleFetchBooks("mine");
+      setShowSingle(false);
     }
     else if (currentPath === "/logout") {
+      setShowSingle(false);
+      handleFetchBooks("");
       handleLogout();
       setBooks([]);
       navigate("/");
+    }
+    else{
+      setShowSingle(true);
     }
   }, [currentPath]);
 
@@ -50,9 +60,15 @@ function App() {
     navigate("/mybooks");
     handleLogin("bodo", "bodo");
   };
+  const handleLoginAlex = (event) => {
+    event.preventDefault();
+    navigate("/mybooks");
+    handleLogin("Alex", "Alex");
+  };
+
 
   
-
+ 
   
 
   let showPage = <div>
@@ -61,16 +77,25 @@ function App() {
     <button onClick={handleLoginBob}>Bob</button>
     <button onClick={handleLoginBibi}>Bibi</button>
     <button onClick={handleLoginBodo}>Bodo</button>
+    <button onClick={handleLoginAlex}>Alex</button>
   </div>
 
-  if (showLogin == false) {
-    showPage =
+  if (showLogin == false){
+    if (showSingle == true){
+      showPage = <div>
+      <NavBar />
+      <BookShowSingle />
+      </div>
+    }
+    else{
+      showPage =
       <div>
         <NavBar />
         <BookSearch />
         <BookCreate />
         <BookList />
       </div>
+    }   
   }
 
   return (showPage)

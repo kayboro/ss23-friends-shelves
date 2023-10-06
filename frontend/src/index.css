@@ -250,3 +250,24 @@ input+label {
   text-decoration: underline;
 
 }
+
+.singleBookPage {
+
+  margin-left: 160px;
+  justify-content: center;
+
+}
+
+.actions {
+
+  margin-left: 160px;
+  justify-content: center;
+  
+}
+
+.bookEdit{
+
+  margin-left: 160px;
+  justify-content: center;
+
+}

@@ -26,7 +26,10 @@ function BookEdit({ book, onSubmit }) {
     };
 
     //Bookedit form
-    return <form onSubmit={handleSubmit} className="book-edit">
+    return <form onSubmit={handleSubmit} className="bookEdit">
+        <p>
+            <img className='bookCover' src={book.image} />
+        </p>
         <p>
             <label>Title</label>
             <input className="input" value={formData.title} onChange={handleChange} name="title" />

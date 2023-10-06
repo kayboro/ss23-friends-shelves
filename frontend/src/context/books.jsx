@@ -8,6 +8,7 @@ function Provider({ children }){
     //start arrays for books in database and searchquery
     const [searchBooks, setSearchBooks] = useState([]);    
     const [books, setBooks] = useState([]);
+    const [singleBook, setSingleBook] = useState({});
     const [showBooks, setShowBooks] = useState("mine");
 
     //Fetching books from user
@@ -112,6 +113,13 @@ function Provider({ children }){
 
   }
 
+  const bookInfo = async (bookIDNumber) => {
+    
+    const response = await axios.get(`http://localhost:8080/books/${bookIDNumber}`, { withCredentials: true });
+    setSingleBook(response);
+  
+  }
+
   const valueToShare = {
     books,
     searchBooks,
@@ -122,6 +130,8 @@ function Provider({ children }){
     deleteBookById,
     createBook,
     searchBook,
+    bookInfo,
+    singleBook,
 }
 
     return <BooksContext.Provider value={valueToShare}>

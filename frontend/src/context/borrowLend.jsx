@@ -5,39 +5,27 @@ const BorrowLendContext = createContext();
 
 function BorrowLendProvider({ children }){
 
-  let borrowingrequestsID = "";
-
-  const handleLend = async (bookIDNumber) => {
-  const userID = "64f0969dfcc82a3f3189491a"
-  console.log(bookIDNumber);
-    
+  const handleLend = async (bookIDNumber, message) => {    
     try{
       const input = {
         borrowingrequest: {
-          requserid : userID,
           status: "home",
-          message: "I'd like to borrow your book, please",
+          message: `${message}`,
           dueDate: "2023-11-20"
           }
       };
       const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
       console.log(response);
-      borrowingrequestsID = response.data.borrowingrequests[0]._id
-      const responseBook = await axios.get(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
-      console.log(responseBook);
     } catch (e) {
       console.log(e)
       };
   }
 
   const cancelLend = async (bookIDNumber) => {
-
-    const userID = "64f0969dfcc82a3f3189491a"
     
     try{
       const input = {
         borrowingrequest: {
-          requserid : userID,
           status: "declined",
           message: "sorry missclicked",
           }
@@ -49,10 +37,69 @@ function BorrowLendProvider({ children }){
       };
   }
 
+  const statusLend = async (bookIDNumber) => {
+      
+    const response = await axios.get(`http://localhost:8080/books/${bookIDNumber}`, { withCredentials: true });
+      
+      if(response.data == undefined){
+        console.log("no borrow requests at the moment");
+      }
+      else
+      {
+        console.log(response.data.borrowingrequests);
+      }      
+  }
+
+  const acceptLend = async (bookIDNumber, borrowingRequestID) => {
+   try{
+    const input = {
+      borrowingrequest: {
+        status: "transferLtoB",
+        message: "sure you can have it",
+        dueDate: "2023-11-18"
+        }
+    };
+
+    console.log(bookIDNumber);
+    console.log(borrowingRequestID);
+    const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
+    console.log(response.data);
+  } catch(e){
+    console.log(e);
+  }
+
+  }
+
+  const declineLend = async (bookIDNumber, borrowingRequestID) => {
+    try{
+     const input = {
+       borrowingrequest: {
+         status: "declined",
+         message: "no sorry",
+         dueDate: "2023-11-18"
+         }
+     };
+ 
+     console.log(bookIDNumber);
+     console.log(borrowingRequestID);
+     const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
+     console.log(response.data);
+   } catch(e){
+     console.log(e);
+   }
+ 
+   }
+
+  
+
+
 
   const valueToShare = {
     handleLend,
     cancelLend,
+    statusLend,
+    acceptLend,
+    declineLend
     
 }
 
