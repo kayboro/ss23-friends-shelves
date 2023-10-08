@@ -17,7 +17,7 @@ import './App.css';
 
 function App() {
 
-  const { handleFetchBooks, setBooks } = useContext(BooksContext);
+  const { handleFetchBooks, bookInfo, singleBook, setSingleBook } = useContext(BooksContext);
   const { showLogin, handleLogout, handleLogin } = useContext(UserContext);
   const { currentPath, navigate } = useContext(NavigationContext);
   const [showSingle, setShowSingle ] = useState(false);
@@ -34,20 +34,25 @@ function App() {
     if (currentPath === "/allbooks") {
       handleFetchBooks("");
       setShowSingle(false);
+      setSingleBook({});
     }
     else if (currentPath === "/mybooks") {
       handleFetchBooks("mine");
       setShowSingle(false);
+      setSingleBook({});
     }
     else if (currentPath === "/logout") {
       setShowSingle(false);
-      handleFetchBooks("");
+      setSingleBook({});
       handleLogout();
-      setBooks([]);
       navigate("/");
     }
     else if (showLogin === false){
-      setShowSingle(true);
+      if(currentPath != "/"){
+        console.log(currentPath);
+        bookInfo(currentPath);
+        setShowSingle(true);
+      }
     }
   }, [currentPath]);
 

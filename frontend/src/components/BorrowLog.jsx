@@ -10,62 +10,66 @@ import NavigationContext from '../context/navigation';
 function BorrowLog({bookData}) {
 
     const { bookInfo } = useContext(BooksContext);
-    const { handleLend, cancelLend, statusLend, acceptLend, declineLend, getBorrowMessages, borrowMessages, sendMessage, resetLend } = useContext(BorrowLendContext);
+    const { handleBorrowRequest, acceptLend, declineLend, getBorrowMessages, borrowMessages, resetLend } = useContext(BorrowLendContext);
     const { currentPath } = useContext(NavigationContext);
     const [showBorrowActionButtons, setShowBorrowActionButtons] = useState(false);
     const [showMessenger, setShowMessenger] = useState(false);
-    const [showBorrowRequestfield, setShowBorrowRequestfield] = useState(true);
     const [showDueDateField, setShowDueDateField] = useState(false);
-    const [availabilityValue, setAvailabilityValue] = useState();
+    const [showReturnButton, setShowReturnButton] = useState(false);
 
-    //Handle borrow test buttons
-    const handleLendClick = () => {
-        handleLend(bookData._id, formData.message);
-        bookInfo(currentPath);
-        handleStatusCLick();
+     //Show the book as object
+     let message = <></>;
+     let dueDateField = <></>;
+     let messenger = <></>;
+     let borrowAction = <></>;
+     let borrowRequest = <></>;
+     let dueDate = bookData.dueDate;
+     let returnButton = <></>;
+
+    const handleCancelClick = async () => {
+        const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id, "REQUEST CANCELLED","declined","");
+        bookInfo(response._id);
     };
 
-    const handleCancelClick = () => {
-        cancelLend(bookData._id, bookData.borrowingrequests[0]._id);
-        bookInfo(currentPath);
+    const handleResetClick = async () => {
+        const response = await resetLend(bookData._id);
+        bookInfo(response._id);
     };
 
-    const handleResetClick = () => {
-        resetLend(bookData._id);
-        bookInfo(currentPath);
-    };
-
-    const handleStatusCLick = () => {
-        statusLend(bookData._id);
-        bookInfo(currentPath);
-    };
-
-    const handleAcceptLendClick = () => {
-        console.log(bookData);
-        acceptLend(bookData._id, bookData.borrowingrequests[0]._id);
+    const handleAcceptLendClick = async () => {
+        const response = await acceptLend(bookData._id, bookData.borrowingrequests[0]._id);
         setShowBorrowActionButtons(false);
-        getBorrowMessages(bookData);
+        getBorrowMessages(response);
     };
 
-    const handleDeclineLendClick = () => {
-        console.log(bookData);
-        declineLend(bookData._id, bookData.borrowingrequests[0]._id);
+    const handleDeclineLendClick = async () => {
+        const response = await declineLend(bookData._id, bookData.borrowingrequests[0]._id);
         setShowBorrowActionButtons(false);
-        getBorrowMessages(bookData);
+        getBorrowMessages(response);
     };
 
-    const handleMessageClick = () => {
-        sendMessage(bookData._id, bookData.borrowingrequests[0]._id,formData.messenger, "");
+    const handleMessageClick = async () => {
+        if(!bookData.owner){
+            const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id,formData.messenger,"atB","");
+            bookInfo(response._id);
+        }else{
+            const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id, formData.messenger,"atB",formData.dueDate);
+            bookInfo(response._id);
+            setFormData({ message: "Hi I would like to borrow this book", messenger: "" });
+        }
         setFormData({ message: "Hi I would like to borrow this book", messenger: "" });
     };
 
-    const handleDueDateClick = () => {
-        sendMessage(bookData._id, bookData.borrowingrequests[0]._id, formData.messenger, formData.dueDate);
-        setAvailabilityValue(`Due Date: ${formData.dueDate}`);
-        setFormData({ message: "Hi I would like to borrow this book", messenger: "" });
-    };
+    const handleReturnClick = async () => {
+        if(!bookData.owner){
+            const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id,"Done reading, will send the book back","transferBtoL","transferBtoL",bookData.dueDate);
+        }else{
+            const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id,"Need the book back, please return it before the new due date","transferBtoL",moment().format('YYYY-MM-DD'));
+            bookInfo(response._id);
+        }
+    }
 
-    const [formData, setFormData] = useState({ message: "Hi I would like to borrow this book", messenger: "", dueDate: moment().format('YYYY-MM-DD') });
+    const [formData, setFormData] = useState({ message: "Hi I would like to borrow this book", messenger: "", dueDate: dueDate });
 
     const handleChange = (event) => {
         const changedField = event.target.name;
@@ -76,32 +80,16 @@ function BorrowLog({bookData}) {
         })
 
     }
-
-    //Show the book as object
-    let message = <></>;
-    let dueDateField = <></>;
-    let messenger = <></>;
-    let borrowAction = <></>;
-    let borrowRequest = <></>;
-    let dueDate = "";
-    let availability = <p>{availabilityValue}</p>
-    const resetButton = <p><button className="Reset" onClick={handleResetClick}>Reset</button></p>
-
          
     useEffect(() =>{
-
-        if(bookData.owner){
-            setShowBorrowRequestfield(false);
-        }
         if(bookData.borrowingrequests){
             if(Object.keys(bookData.borrowingrequests).length > 0){  
                 dueDate =  bookData.dueDate.split("T");
-                setAvailabilityValue(`Due Date: ${dueDate[0]}`); 
+                setFormData({ message: "Hi I would like to borrow this book", messenger: "", dueDate: dueDate[0] }); 
                 
                     if(bookData.borrowingrequests[0].bookLocation == "home" && bookData.owner){
                         setShowBorrowActionButtons(true);   
                     }
-                    setShowBorrowRequestfield(false);
                     getBorrowMessages(bookData);
 
                     if(bookData.borrowingrequests[0].bookLocation == "transferLtoB" && !bookData.owner){
@@ -109,19 +97,19 @@ function BorrowLog({bookData}) {
                     }
                     if(bookData.borrowingrequests[0].bookLocation == "atB"){
                         setShowMessenger(true);
+                        setShowReturnButton(true);
                     }
                     if(bookData.borrowingrequests[0].bookLocation == "atB" && bookData.owner){
                         setShowDueDateField(true);
                     }
                }
-        }else{
-            setAvailabilityValue("Available");
         }
     },[bookData])
     
     message = <div className = "bookDataPage">{borrowMessages}</div>
+    const resetButton = <p><button className="Reset" onClick={handleResetClick}>Reset</button></p>
 
-    if(showBorrowActionButtons === true){
+    if(bookData.borrowingrequests[0].bookLocation === "home" && showBorrowActionButtons){
         borrowAction = <div>
                 <button className="accept" onClick={handleAcceptLendClick}>Accept</button>
                 <button className="decline" onClick={handleDeclineLendClick}>Decline</button>
@@ -139,39 +127,31 @@ function BorrowLog({bookData}) {
             <button className="cancel" onClick={handleCancelClick}>
                 Cancel Borrow
             </button>
-            <button className="status" onClick={handleStatusCLick}>
-                Status Borrow
-            </button>
         </p>
     </div>
     };  
-    
-    if(showBorrowRequestfield === true){
-        borrowRequest = <p>
-            <input className="input" value={formData.message} onChange={handleChange} name="message" />
-            <button className="borrow" onClick={handleLendClick}>
-                Borrow
-            </button>
-        </p>
-    }
 
     if(showDueDateField === true){
         dueDateField = <p>
            <input type="date" id="dueDate" name="dueDate" value={formData.date} min={moment().format('YYYY-MM-DD')} max="2050-12-31" onChange={handleChange} />
-           <button className="dueDate" onClick={handleDueDateClick}>
-                Change Date
-            </button>
+        </p>
+    }
+
+    if(showReturnButton === true){
+        returnButton =
+        <p>
+            <button className="borrow" onClick={handleReturnClick}>Return</button>
         </p>
     }
 
     //Show book or edit menu for each book
     return <div>
-        {availability}
         {borrowRequest}
         {borrowAction}
-        {dueDateField}
         {message}
         {messenger}
+        {dueDateField}
+        {returnButton}
         {resetButton}
     </div>
 }

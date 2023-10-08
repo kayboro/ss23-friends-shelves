@@ -6,6 +6,7 @@ const BorrowLendContext = createContext();
 function BorrowLendProvider({ children }){
 
   const [borrowMessages, setBorrowMessages] = useState([]); 
+  const [availabilityValue, setAvailabilityValue] = useState([]);
 
   const handleLend = async (bookIDNumber, message) => {    
     try{
@@ -18,23 +19,7 @@ function BorrowLendProvider({ children }){
       };
       const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
       console.log(response);
-    } catch (e) {
-      console.log(e)
-      };
-  }
-
-  const cancelLend = async (bookIDNumber, borrowingRequestID) => {
-    
-    try{
-      const input = {
-        borrowingrequest: {
-          status: "declined",
-          message: "sorry missclicked",
-          }
-      };
-      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
-      console.log(response);
-      setBorrowMessages([]);
+      return(response.data);
     } catch (e) {
       console.log(e)
       };
@@ -52,6 +37,7 @@ function BorrowLendProvider({ children }){
       const response = await axios.delete(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/`, input, { withCredentials: true });
       console.log(response);
       setBorrowMessages([]);
+      return(response.data);
     } catch (e) {
       console.log(e)
       };
@@ -84,6 +70,7 @@ function BorrowLendProvider({ children }){
     const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
     console.log(response.data);
     getBorrowMessages(response.data);
+    return(response.data);
   } catch(e){
     console.log(e);
   }
@@ -104,6 +91,7 @@ function BorrowLendProvider({ children }){
      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
      console.log(response.data);
      getBorrowMessages(response.data);
+     return(response.data);
    } catch(e){
      console.log(e);
    }
@@ -128,22 +116,24 @@ function BorrowLendProvider({ children }){
       }
     }
     setBorrowMessages(messageLog);
+    setAvailabilityValue(book.dueDate);
    }
 
-   const sendMessage = async (bookIDNumber, borrowingRequestID, message, dueDate) => {
+  
+   const handleBorrowRequest = async (bookIDNumber, borrowingRequestID, message, status, dueDate) => {
     try{
       let input = {}
       if(dueDate === ""){
           input = {
             borrowingrequest: {
-              status: "atB",
+              status: status,
               message: message,
               }  
         }
       }else{
         input = {
           borrowingrequest: {
-            status: "atB",
+            status: status,
             message: message,
             dueDate: dueDate
             }
@@ -152,25 +142,25 @@ function BorrowLendProvider({ children }){
       const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
       getBorrowMessages(response.data);
       console.log(response.data);
+      return(response.data);
     } catch(e){
       console.log(e);
     }
    }
-
   
 
 
 
   const valueToShare = {
     handleLend,
-    cancelLend,
     statusLend,
     acceptLend,
     declineLend,
     getBorrowMessages,
     borrowMessages,
-    sendMessage,
     resetLend,
+    handleBorrowRequest,
+    availabilityValue
     
 }
 

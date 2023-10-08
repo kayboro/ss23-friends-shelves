@@ -101,6 +101,7 @@ function Provider({ children }){
   const bookInfo = async (bookIDNumber) => {
     
     const response = await axios.get(`http://localhost:8080/books/${bookIDNumber}`, { withCredentials: true });
+    console.log(response.data);
     setSingleBook(response.data);
   }
 
@@ -116,6 +117,7 @@ function Provider({ children }){
     searchBook,
     bookInfo,
     singleBook,
+    setSingleBook
 }
 
     return <BooksContext.Provider value={valueToShare}>
