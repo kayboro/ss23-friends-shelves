@@ -1,9 +1,7 @@
-
 import { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
 import BooksContext from '../context/books';
 import BorrowLendContext from '../context/borrowLend';
-import NavigationContext from '../context/navigation';
 
 
 
@@ -11,11 +9,11 @@ function BorrowLog({bookData}) {
 
     const { bookInfo } = useContext(BooksContext);
     const { handleBorrowRequest, acceptLend, declineLend, getBorrowMessages, borrowMessages, resetLend } = useContext(BorrowLendContext);
-    const { currentPath } = useContext(NavigationContext);
     const [showBorrowActionButtons, setShowBorrowActionButtons] = useState(false);
     const [showMessenger, setShowMessenger] = useState(false);
     const [showDueDateField, setShowDueDateField] = useState(false);
     const [showReturnButton, setShowReturnButton] = useState(false);
+    const [showReturnedButton, setShowReturnedButton] = useState(false);
 
      //Show the book as object
      let message = <></>;
@@ -69,6 +67,14 @@ function BorrowLog({bookData}) {
         }
     }
 
+    const handleReturnedClick = async () => {
+        
+        const response = await handleBorrowRequest(bookData._id, bookData.borrowingrequests[0]._id,"Got the book back - thanks - hope you enjoyed the book","backHome","");
+        bookInfo(response._id);  
+        const response2 = await resetLend(bookData._id);
+    }
+
+
     const [formData, setFormData] = useState({ message: "Hi I would like to borrow this book", messenger: "", dueDate: dueDate });
 
     const handleChange = (event) => {
@@ -101,6 +107,9 @@ function BorrowLog({bookData}) {
                     }
                     if(bookData.borrowingrequests[0].bookLocation == "atB" && bookData.owner){
                         setShowDueDateField(true);
+                    }
+                    if(bookData.borrowingrequests[0].bookLocation == "transferBtoL" && bookData.owner){
+                        setShowReturnedButton(true);
                     }
                }
         }
@@ -141,6 +150,13 @@ function BorrowLog({bookData}) {
         returnButton =
         <p>
             <button className="borrow" onClick={handleReturnClick}>Return</button>
+        </p>
+    }
+
+    if(showReturnedButton === true){
+        returnButton =
+        <p>
+            <button className="borrow" onClick={handleReturnedClick}>Returned</button>
         </p>
     }
 
