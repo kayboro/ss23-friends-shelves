@@ -38,10 +38,10 @@ function BookShowSingle() {
 
     useEffect(() => {
         if(!singleBook.dueDate){
-            setDueDate(<p className = "singleBookPage">Available</p>);
+            setDueDate(<p className = "dueDate">Available</p>);
         }else{
             let dueDateSplit = singleBook.dueDate.split("T");
-            setDueDate(<p className = "singleBookPage">Not available until: {dueDateSplit[0]}</p>);
+            setDueDate(<p className = "dueDate">Due Date: {dueDateSplit[0]}</p>);
         };
     },[singleBook]);
     

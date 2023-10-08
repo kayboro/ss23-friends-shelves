@@ -15,7 +15,8 @@ function BorrowRequester({bookData}) {
         setShowBorrowRequestfield(false);
     };
    
-    const [formData, setFormData] = useState({ message: "Hi I would like to borrow this book"});
+    //handle formdata of messagefield
+    const [formData, setFormData] = useState({ message: "Hi I would like to borrow this book, please send it to my address: "});
 
     const handleChange = (event) => {
         const changedField = event.target.name;
@@ -28,12 +29,11 @@ function BorrowRequester({bookData}) {
 
     let borrowRequest = <></>;
     
+    //show borrowrequest text field and submit button
     if(showBorrowRequestfield === true){
-        borrowRequest = <p>
-            <input className="input" value={formData.message} onChange={handleChange} name="message" />
-            <button className="borrow" onClick={handleLendClick}>
-                Borrow
-            </button>
+        borrowRequest = <p className='messageField'>
+            <input id="borrowRequester" className="input" value={formData.message} onChange={handleChange} name="message" />
+            <button className="borrow" onClick={handleLendClick}>Request Borrow</button>
         </p>
     };
 

@@ -11,7 +11,8 @@ import BooksContext from './context/books';
 import UserContext from './context/user';
 import NavigationContext from './context/navigation';
 
-import './App.css';
+import './styles/App.css';
+import './styles/BorrowLend.css';
 
 
 
@@ -49,7 +50,6 @@ function App() {
     }
     else if (showLogin === false){
       if(currentPath != "/"){
-        console.log(currentPath);
         bookInfo(currentPath);
         setShowSingle(true);
       }

@@ -173,7 +173,10 @@ input+label {
 .book-show {
   width: 200px;
   margin: 10px;
+}
 
+.book-show a:hover{
+  cursor: pointer;
 }
 
 .buttonBookCreate {

@@ -8,6 +8,7 @@ function BorrowLendProvider({ children }){
   const [borrowMessages, setBorrowMessages] = useState([]); 
   const [availabilityValue, setAvailabilityValue] = useState([]);
 
+  //function for handeling and creating incoming borrowrequest
   const handleLend = async (bookIDNumber, message) => {    
     try{
       const input = {
@@ -18,15 +19,14 @@ function BorrowLendProvider({ children }){
           }
       };
       const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest`, input, { withCredentials: true });
-      console.log(response);
       return(response.data);
     } catch (e) {
       console.log(e)
       };
   }
 
-  const resetLend = async (bookIDNumber) => {
-    
+  //function for resetting all borrowrequest connected to a book, only used during testing
+  const resetLend = async (bookIDNumber) => { 
     try{
       const input = {
         borrowingrequest: {
@@ -35,7 +35,6 @@ function BorrowLendProvider({ children }){
           }
       };
       const response = await axios.delete(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/`, input, { withCredentials: true });
-      console.log(response);
       setBorrowMessages([]);
       return(response.data);
     } catch (e) {
@@ -43,19 +42,7 @@ function BorrowLendProvider({ children }){
       };
   }
 
-  const statusLend = async (bookIDNumber) => {
-      
-    const response = await axios.get(`http://localhost:8080/books/${bookIDNumber}`, { withCredentials: true });
-      
-      if(response.data == undefined){
-        console.log("no borrow requests at the moment");
-      }
-      else
-      {
-        console.log(response.data.borrowingrequests);
-      }      
-  }
-
+  //function to accept borrow request
   const acceptLend = async (bookIDNumber, borrowingRequestID) => {
    try{
     const input = {
@@ -65,10 +52,7 @@ function BorrowLendProvider({ children }){
         dueDate: "2023-11-18"
         }
     };
-    console.log(bookIDNumber);
-    console.log(borrowingRequestID);
     const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
-    console.log(response.data);
     getBorrowMessages(response.data);
     return(response.data);
   } catch(e){
@@ -76,6 +60,7 @@ function BorrowLendProvider({ children }){
   }
   }
 
+  //function to decline borrowrequest
   const declineLend = async (bookIDNumber, borrowingRequestID) => {
     try{
      const input = {
@@ -85,11 +70,7 @@ function BorrowLendProvider({ children }){
          dueDate: "2023-11-18"
          }
      };
- 
-     console.log(bookIDNumber);
-     console.log(borrowingRequestID);
      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
-     console.log(response.data);
      getBorrowMessages(response.data);
      return(response.data);
    } catch(e){
@@ -97,6 +78,7 @@ function BorrowLendProvider({ children }){
    }
   }
 
+  //function for filling up the messagelog for display
    const getBorrowMessages = (book) => {
     const textLog = book.borrowingrequests[0].textlog;
     const messageLog = [];
@@ -112,14 +94,14 @@ function BorrowLendProvider({ children }){
         messenger = "Lender"
       };
       if(book.borrowingrequests[0].textlog[i].messageText !=""){
-        messageLog.push(<p>{messenger}: {book.borrowingrequests[0].textlog[i].messageText}</p>);
+        messageLog.push(<p className = {messenger}>{messenger}: {book.borrowingrequests[0].textlog[i].messageText}</p>);
       }
     }
     setBorrowMessages(messageLog);
     setAvailabilityValue(book.dueDate);
    }
 
-  
+  //function for handeling the sending of messages
    const handleBorrowRequest = async (bookIDNumber, borrowingRequestID, message, status, dueDate) => {
     try{
       let input = {}
@@ -153,7 +135,6 @@ function BorrowLendProvider({ children }){
 
   const valueToShare = {
     handleLend,
-    statusLend,
     acceptLend,
     declineLend,
     getBorrowMessages,
