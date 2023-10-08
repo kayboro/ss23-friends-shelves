@@ -7,22 +7,22 @@ const borrowingrequests = require('../controllers/borrowingrequests');
 router.route('/')
     .post(    
         // isLoggedIn,
-        validateBorrowingrequest,
+        //validateBorrowingrequest,
         // catchAsync(isNotOwner),
-        bookHasOngoingBorrowingrequest,
+        // bookHasOngoingBorrowingrequest,
         catchAsync(borrowingrequests.createBorrowingrequest))
     .delete(catchAsync(borrowingrequests.deleteAllBorrowingrequest));
 
 router.route('/:borrowingrequestId')
     .post(
         // isLoggedIn,
-        validateBorrowingrequest,
-        catchAsync(borrowingrequestBelongsToBook),
+        // validateBorrowingrequest,
+        // catchAsync(borrowingrequestBelongsToBook),
         catchAsync(borrowingrequests.handlePostBorrowingrequest))
     .delete(
         //  isLoggedIn,
         // catchAsync(isOwner),
-        catchAsync(borrowingrequestBelongsToBook),
+        // catchAsync(borrowingrequestBelongsToBook),
         catchAsync(borrowingrequests.deleteBorrowingrequest)
     );
 

@@ -30,13 +30,7 @@ function Provider({ children }){
         book: { title, author, image: "https://tse1.explicit.bing.net/th?id=OIP.TF-ZDchnQgWskBRH8ZNu1gHaI6&pid=Api", isbn, blurb }
       };
       const response = await axios.post('http://localhost:8080/books', input, { withCredentials: true });
-
-      // Esther to Alex: better get new axios request form db/ fetch books (mine/all) depending on where the user currently is
-      // this should also get rid of the bug, that the buttons don't show right away
-      const updatedBooks = [
-        ...books, response.data
-      ];
-      setBooks(updatedBooks);
+      handleFetchBooks("mine");
     } catch (e) {
       console.log(e)
     };
@@ -55,17 +49,7 @@ function Provider({ children }){
         }
       };
       const response = await axios.put(`http://localhost:8080/books/${id}`, input, { withCredentials: true });
-
-      // Esther to Alex: better get new axios request form db/ fetch books (mine/all) depending on where the user currently is
-      // current bug: the old version of the book is still in state and won't change
-      const updatedBooks = books.map((book) => {
-        if (book._id === id) {
-          return { ...response.data };
-        }
-        return book;
-      });
-      setBooks(updatedBooks);
-
+      setSingleBook(response.data);
     } catch (e) {
       console.log(e)
     };
@@ -112,12 +96,12 @@ function Provider({ children }){
     }
 
   }
-
+  
+  //get info on single book
   const bookInfo = async (bookIDNumber) => {
     
     const response = await axios.get(`http://localhost:8080/books/${bookIDNumber}`, { withCredentials: true });
-    setSingleBook(response);
-  
+    setSingleBook(response.data);
   }
 
   const valueToShare = {

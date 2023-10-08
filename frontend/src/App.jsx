@@ -18,12 +18,18 @@ import './App.css';
 function App() {
 
   const { handleFetchBooks, setBooks } = useContext(BooksContext);
-  const { showLogin, handleLogout, handleLogin, checkLoggedIn } = useContext(UserContext);
+  const { showLogin, handleLogout, handleLogin } = useContext(UserContext);
   const { currentPath, navigate } = useContext(NavigationContext);
   const [showSingle, setShowSingle ] = useState(false);
 
-  
+  //useEffect to populate books at first login
+  useEffect(() => {
+    if(showLogin === false){
+      navigate("/allbooks");
+    }
+  }, [showLogin]);
 
+  //routing after first login
   useEffect(() => {
     if (currentPath === "/allbooks") {
       handleFetchBooks("");
@@ -45,32 +51,26 @@ function App() {
     }
   }, [currentPath]);
 
+  //easy login buttons for testign DELETE BEFORE PUBLISH
   const handleLoginBob = (event) => {
     event.preventDefault();
-    navigate("/mybooks");
     handleLogin("bob", "bob");
   };
   const handleLoginBibi = (event) => {
     event.preventDefault();
-    navigate("/mybooks");
     handleLogin("bibi", "bibi");
   };
   const handleLoginBodo = (event) => {
     event.preventDefault();
-    navigate("/mybooks");
     handleLogin("bodo", "bodo");
   };
   const handleLoginAlex = (event) => {
     event.preventDefault();
-    navigate("/mybooks");
     handleLogin("Alex", "Alex");
   };
 
-
   
- 
-  
-
+  //show login page if not logged in yet
   let showPage = <div>
     <NavBar />
     <LoginRegisterForm />
@@ -80,6 +80,7 @@ function App() {
     <button onClick={handleLoginAlex}>Alex</button>
   </div>
 
+  //show application when loggedin
   if (showLogin == false){
     if (showSingle == true){
       showPage = <div>

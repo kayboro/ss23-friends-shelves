@@ -60,19 +60,14 @@ module.exports.deleteAllBorrowingrequest = async (req, res) => {
 // handle post request to a specific borrowingrequest
 module.exports.handlePostBorrowingrequest = async (req, res) => {
     const reqTimestamp = new Date();
-    //const { id, borrowingrequestId } = req.params;
+    const { id, borrowingrequestId } = req.params;
     //const { requserid, status, message } = req.body.borrowingrequest;
     // Esther to Alex: comment the above line and uncomment the following two lines - I'll then do the clean up, when the FE stands
     const { status, message } = req.body.borrowingrequest;
-    console.log(status);
-    console.log(message);
     const requserid = req.user._id;
-    console.log(requserid);
     const dueDate = new Date(req.body.borrowingrequest.dueDate);
     const book = await Book.findById(id);
-    // console.log(book);
     const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
-    //console.log(borrowingrequest);
     const pushMessage = () => {
         if (message) {
             borrowingrequest.textlog.push({ messageText: message, messageWriter: book.owner.equals(requserid) ? 'l' : 'b', messageTimestamp: reqTimestamp });

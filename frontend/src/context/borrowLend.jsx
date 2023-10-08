@@ -5,6 +5,8 @@ const BorrowLendContext = createContext();
 
 function BorrowLendProvider({ children }){
 
+  const [borrowMessages, setBorrowMessages] = useState([]); 
+
   const handleLend = async (bookIDNumber, message) => {    
     try{
       const input = {
@@ -21,7 +23,24 @@ function BorrowLendProvider({ children }){
       };
   }
 
-  const cancelLend = async (bookIDNumber) => {
+  const cancelLend = async (bookIDNumber, borrowingRequestID) => {
+    
+    try{
+      const input = {
+        borrowingrequest: {
+          status: "declined",
+          message: "sorry missclicked",
+          }
+      };
+      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
+      console.log(response);
+      setBorrowMessages([]);
+    } catch (e) {
+      console.log(e)
+      };
+  }
+
+  const resetLend = async (bookIDNumber) => {
     
     try{
       const input = {
@@ -32,6 +51,7 @@ function BorrowLendProvider({ children }){
       };
       const response = await axios.delete(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/`, input, { withCredentials: true });
       console.log(response);
+      setBorrowMessages([]);
     } catch (e) {
       console.log(e)
       };
@@ -59,15 +79,14 @@ function BorrowLendProvider({ children }){
         dueDate: "2023-11-18"
         }
     };
-
     console.log(bookIDNumber);
     console.log(borrowingRequestID);
     const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
     console.log(response.data);
+    getBorrowMessages(response.data);
   } catch(e){
     console.log(e);
   }
-
   }
 
   const declineLend = async (bookIDNumber, borrowingRequestID) => {
@@ -84,10 +103,58 @@ function BorrowLendProvider({ children }){
      console.log(borrowingRequestID);
      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
      console.log(response.data);
+     getBorrowMessages(response.data);
    } catch(e){
      console.log(e);
    }
- 
+  }
+
+   const getBorrowMessages = (book) => {
+    const textLog = book.borrowingrequests[0].textlog;
+    const messageLog = [];
+    for(let i = 0; i <= (textLog.length -1); i++){
+      let messenger = ""     
+      if(book.borrowingrequests[0].textlog[i].messageWriter === "b" && !book.owner || book.borrowingrequests[0].textlog[i].messageWriter === "l" && book.owner){
+        messenger = "You"
+      }
+      else if(book.borrowingrequests[0].textlog[i].messageWriter === "b" && book.owner ){
+          messenger = "Borrower"
+      }
+      else{
+        messenger = "Lender"
+      };
+      if(book.borrowingrequests[0].textlog[i].messageText !=""){
+        messageLog.push(<p>{messenger}: {book.borrowingrequests[0].textlog[i].messageText}</p>);
+      }
+    }
+    setBorrowMessages(messageLog);
+   }
+
+   const sendMessage = async (bookIDNumber, borrowingRequestID, message, dueDate) => {
+    try{
+      let input = {}
+      if(dueDate === ""){
+          input = {
+            borrowingrequest: {
+              status: "atB",
+              message: message,
+              }  
+        }
+      }else{
+        input = {
+          borrowingrequest: {
+            status: "atB",
+            message: message,
+            dueDate: dueDate
+            }
+          }
+        };
+      const response = await axios.post(`http://localhost:8080/books/${bookIDNumber}/borrowingrequest/${borrowingRequestID}`, input, { withCredentials: true });
+      getBorrowMessages(response.data);
+      console.log(response.data);
+    } catch(e){
+      console.log(e);
+    }
    }
 
   
@@ -99,7 +166,11 @@ function BorrowLendProvider({ children }){
     cancelLend,
     statusLend,
     acceptLend,
-    declineLend
+    declineLend,
+    getBorrowMessages,
+    borrowMessages,
+    sendMessage,
+    resetLend,
     
 }
 
