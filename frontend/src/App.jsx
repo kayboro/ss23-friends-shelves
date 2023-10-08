@@ -46,7 +46,7 @@ function App() {
       setBooks([]);
       navigate("/");
     }
-    else{
+    else if (showLogin === false){
       setShowSingle(true);
     }
   }, [currentPath]);
