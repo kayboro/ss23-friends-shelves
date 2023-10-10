@@ -1,37 +1,36 @@
 import BookShow from './BookShow'
 import { useContext } from 'react';
 import BooksContext from '../context/books';
-import UserContext from '../context/user';
 
 function BookList() {
 
-    const { books, searchBooks, showBooks } = useContext(BooksContext);
-    const { loggedInUser } = useContext(UserContext);
-
+    const { books, searchBooks, showBooks, handleFetchBooks } = useContext(BooksContext);
+    
+    if(books === "sign in please"){
+       handleFetchBooks("mine");
+    }
+    else{
     //render all books in books array
     let renderedBooks = books.map((book) => {
-        return <BookShow key={book._id} book={book} user={loggedInUser} />;
-        //Esther to Alex: do you actually need to pass key - it is included in book I think?
+        return <BookShow key={book._id} book={book} />;
     });
 
     //render books that adhere to search query if there are any 
     if (searchBooks.length > 0) {
         renderedBooks = searchBooks.map((book) => {
-            return <BookShow key={book._id} book={book} user={loggedInUser} />;
+            return <BookShow key={book._id} book={book} />;
         });
     }
-
-    let pageTitle = `${loggedInUser[0].username}'s Bookshelf`;
 
     if (showBooks === "all") {
         pageTitle = 'Browse Books - that are not on your bookshelf';
     }
-
+    
     return (<div>
-        <div className="pageTitle"><h2>{pageTitle}</h2></div>
         <div className="book-list">{renderedBooks}</div>
     </div>
     )
+    };
 }
 
 export default BookList;

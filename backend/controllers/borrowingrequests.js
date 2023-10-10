@@ -6,13 +6,13 @@ module.exports.createBorrowingrequest = async (req, res) => {
     const reqTimestamp = new Date();
     const { id } = req.params;
     const book = await Book.findById(id);
-    const { requserid, status, message, dueDate } = req.body.borrowingrequest;
+    //const { requserid, status, message, dueDate } = req.body.borrowingrequest;
     // Esther to Alex: comment above, uncomment below
-    // const {status, message, dueDate } = req.body.borrowingrequest;
+    const {status, message, dueDate } = req.body.borrowingrequest;
     const borrowingrequest = new Borrowingrequest();
-    borrowingrequest.borrower = requserid;
+    //borrowingrequest.borrower = requserid;
     // Esther to Alex: comment above, uncomment below
-    // borrowingrequest.borrower = req.user._id;
+    borrowingrequest.borrower = req.user._id;
     borrowingrequest.bookLocation = status;
     borrowingrequest.dueDate = dueDate;
     borrowingrequest.textlog.push({ messageText: message, messageWriter: 'b', messageTimestamp: reqTimestamp });
@@ -42,14 +42,29 @@ module.exports.deleteBorrowingrequest = async (req, res) => {
     res.send('you deleted the borrowing request');
 };
 
+// delete all borrowing requests for testing
+module.exports.deleteAllBorrowingrequest = async (req, res) => {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+    if (book.borrowingrequests){
+        for (const borrowingrequestId of book.borrowingrequests){
+            await Borrowingrequest.findByIdAndDelete(borrowingrequestId);
+        }
+    };
+    book.borrowingrequests = [];
+    await book.save();
+    const updatedBook = await Book.findById(id);
+    res.send(updatedBook);
+};
+
 // handle post request to a specific borrowingrequest
 module.exports.handlePostBorrowingrequest = async (req, res) => {
     const reqTimestamp = new Date();
     const { id, borrowingrequestId } = req.params;
-    const { requserid, status, message } = req.body.borrowingrequest;
+    //const { requserid, status, message } = req.body.borrowingrequest;
     // Esther to Alex: comment the above line and uncomment the following two lines - I'll then do the clean up, when the FE stands
-    // const { status, message } = req.body.borrowingrequest;
-    // const requserid = req.user._id;
+    const { status, message } = req.body.borrowingrequest;
+    const requserid = req.user._id;
     const dueDate = new Date(req.body.borrowingrequest.dueDate);
     const book = await Book.findById(id);
     const borrowingrequest = await Borrowingrequest.findById(borrowingrequestId);
@@ -79,7 +94,7 @@ module.exports.handlePostBorrowingrequest = async (req, res) => {
             console.log('dueDate must be in the future');
         }
     };
-
+    
     // Esther: check the dueDate setting logic, so that its borrower and lender friendly when FE is up
     // logic for updating the request depending on the current situation
     if (borrowingrequest.bookLocation === 'home' && status === 'declined') {

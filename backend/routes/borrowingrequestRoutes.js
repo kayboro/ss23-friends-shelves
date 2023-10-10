@@ -4,23 +4,25 @@ const { validateBorrowingrequest, isLoggedIn, isOwner, isNotOwner, borrowingrequ
 const catchAsync = require('../utils/catchAsync');
 const borrowingrequests = require('../controllers/borrowingrequests');
 
-router.post('/',
-    // isLoggedIn,
-    validateBorrowingrequest,
-    // catchAsync(isNotOwner),
-    bookHasOngoingBorrowingrequest,
-    catchAsync(borrowingrequests.createBorrowingrequest));
+router.route('/')
+    .post(    
+        // isLoggedIn,
+        //validateBorrowingrequest,
+        // catchAsync(isNotOwner),
+        // bookHasOngoingBorrowingrequest,
+        catchAsync(borrowingrequests.createBorrowingrequest))
+    .delete(catchAsync(borrowingrequests.deleteAllBorrowingrequest));
 
 router.route('/:borrowingrequestId')
     .post(
         // isLoggedIn,
-        validateBorrowingrequest,
-        catchAsync(borrowingrequestBelongsToBook),
+        // validateBorrowingrequest,
+        // catchAsync(borrowingrequestBelongsToBook),
         catchAsync(borrowingrequests.handlePostBorrowingrequest))
     .delete(
         //  isLoggedIn,
         // catchAsync(isOwner),
-        catchAsync(borrowingrequestBelongsToBook),
+        // catchAsync(borrowingrequestBelongsToBook),
         catchAsync(borrowingrequests.deleteBorrowingrequest)
     );
 

@@ -86,10 +86,10 @@ module.exports.createBook = async (req, res, next) => {
 // Esther to Alex: Also toggle on isLogged in in the routes, once you start using this at the FE
 module.exports.showBook = async (req, res) => {
     // const requserid = '64f09610fcc82a3f318948fc';
-    const requserid = '64f0969dfcc82a3f3189491a';
+    // const requserid = '64f0969dfcc82a3f3189491a';
     // const requserid = '64f096b7fcc82a3f31894921';
     // Esther to Alex: comment the above 3 line3 and uncomment the following line - I'll then do the clean up, when the FE stands
-    // const requserid = req.user._id;
+    const requserid = req.user._id;
     const response = await Book.findById(req.params.id).populate('borrowingrequests').populate('owner');
     if (!response)
         // req.flash('error', 'Cannot find that book!');
