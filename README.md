@@ -57,7 +57,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
  <a href="https://www.figma.com/file/aV0JFXdP7nezT5nc2NIfQ9/wireframe-web-app?type=design&node-id=0%3A1&mode=design&t=MWjyNCowByrmIhpU-1" target="_blank"> <b>Figma</b> </a>
   </p>
   <h3> Team members - User Experience</h3>
-<p> Jennifer and Albert</p>
+<p> Jennipher M. Kasemire and Albert Kweku Bening</p>
   <p>Mentor: Vincent</p>
 </section>
 
