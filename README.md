@@ -2,6 +2,8 @@
 
 <h2> What is Friends Shelves?</h2>
 <p>A book-sharing web app where friends can easily share and borrow books from each other. </p>
+<b>The journey of the project can be followed in the <a href="https://docs.google.com/presentation/d/1EZPeXxqdA8jrfqqgfBLoJUVuynOpT45-4sRSK1vQk7A/edit#slide=id.g25fad21b0d1_1_0" target="_blank"> <b>presentation slides </b> </a>  for midterm and final presentation.</b>  
+
 
 <section>
 <h1>Webdevelopment</h1>
