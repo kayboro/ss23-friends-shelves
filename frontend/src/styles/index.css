@@ -87,6 +87,7 @@ button:focus-visible {
   width: 100%;
   top: 50px;
   z-index: 1;
+  padding-bottom: 50px;
 
   display: flex;
   justify-content: flex-end;
@@ -172,7 +173,10 @@ input+label {
 .book-show {
   width: 200px;
   margin: 10px;
+}
 
+.book-show a:hover{
+  cursor: pointer;
 }
 
 .buttonBookCreate {
@@ -247,5 +251,26 @@ input+label {
 
   cursor: pointer;
   text-decoration: underline;
+
+}
+
+.singleBookPage {
+
+  margin-left: 160px;
+  justify-content: center;
+
+}
+
+.actions {
+
+  margin-left: 160px;
+  justify-content: center;
+  
+}
+
+.bookEdit{
+
+  margin-left: 160px;
+  justify-content: center;
 
 }
