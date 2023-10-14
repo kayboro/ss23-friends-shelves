@@ -47,7 +47,13 @@ Apart from that the user can browse all books in the database, that he/she doesn
 <section>
   <h1>Data Science</h1>
   <h3> Team members - Data Science</h3>
-<p> Lena (part time contribution) and Nitin </p>
+<p> Project Overview
+
+- **Data Exploration and Cleaning:** In this phase, I analyzed the dataset to understand its structure, find missing data, and make necessary data preprocessing. The cleaned dataset forms the basis for the following steps.
+- **Data Visualization:** I used various data visualization techniques to gain insights into the book data. This helps users and collaborators understand the data's characteristics and trends.
+- **Linear Regression Model:** I implemented a linear regression model for predicting book ratings. This model allows users to estimate the ratings of books based on certain features or criteria, providing a valuable tool for book enthusiasts.
+- **Collaborative Recommendation System (Work in Progress):** While the project includes a linear regression model, I am  actively working on implementing a collaborative recommendation system. This feature will provide users with book recommendations based on their preferences and behaviors, enhancing the app's usability.
+  Lena (part time contribution) and Nitin </p>
 </section></p>
 
 <section>
