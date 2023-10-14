@@ -97,7 +97,7 @@ pip3 install pillow
 pip install opencv-python
 ```
 
-## Simple Code Execution of my model 
+## Simple Code Execution of the model 
 
 You can see this in the below image when the user uploads the image from the local machine. The detector extracted text from the image Separately. Next, it takes the extracted text as input for further processing by performing a search and match task with the dataset; when it finds a matching text, it brings out all the corresponding data columns as final output.
 
