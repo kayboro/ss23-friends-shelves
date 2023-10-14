@@ -67,6 +67,57 @@ Apart from that the user can browse all books in the database, that he/she doesn
   <h1>Deep Learning</h1>
 </section>
 
-<h3> Team members - Deep Learning </h3>
-<p> Jayashree </p>
+<h3>  Memeber : Jayashree </h3>
+<h3>Extracting Text from Image</h3>
+
+Optical Character Recognition (OCR) software or online OCR tools to extract text from an image. Many free and paid OCR tools are available online that can help you to separate the text. Many models are available, but I used Pytesseract as a text extractor despite its difficulties with low-quality images. I wanted to test with py-tesseract because the identifier must perform even if we write text on paper and upload it so that not just book covers but also thesis papers and journals our friends' shelves can have.
+
+<h3>About the Project </h3>
+
+Pytesseract enables the extraction of text from images, PDFs, or scanned documents by utilizing the OCR capabilities.It processes images and identifies the characters and words in the image, converting them into machine-readable text.
+
+
+<h4>Prerequisites</h4>
+
+You will need following packsges:
+1. pandas
+2. numpy
+3. cv2
+4. glob
+5. bytes io
+6. tqdm notebook
+
+For Text Extraction:
+1. pytesseract
+2. pillow
+
+few Installing can be done by
+
+```
+pip3 install numpy
+pip3 install pillow
+pip install opencv-python
+```
+
+## Simple Code Execution of my model 
+
+You can see this in the below image when the user uploads the image from the local machine. The detector extracted text from the image Separately.Next, it takes the extracted text as input for further processing by performing a search and match task with the dataset; when it finds a matching text, it brings out all the corresponding data columns as final output.
+
+## Step 1: Identifying the text and extracting
+
+<img width="946" alt="image" src="https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/91853321/0245e146-1573-4770-b4ed-d85b369f306f">
+
+## Step 2: Performing search, match
+
+![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/91853321/56403e29-be3a-4293-9971-93ca94d63646)
+
+
+## Step 3: Execute result
+
+![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/91853321/abfe7784-ca2b-494c-8ac4-1cf809608f2b)
+
+
+## Conclusion:
+
+There are many methods to upload book covers, like uploading from our local device or directly pasting the URL from the web. Both ways, it will work with simple alterations in our code.
 
