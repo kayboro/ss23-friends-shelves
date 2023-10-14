@@ -68,7 +68,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
 </section>
 <h3>Extracting Text from Image</h3>
 
-Optical Character Recognition (OCR) software or online OCR tools to extract text from an image. Many free and paid OCR tools are available online that can help you to separate the text. Many models are available, but I used Pytesseract as a text extractor despite its difficulties with low-quality images. I wanted to test with py-tesseract because the identifier must perform even if we write text on paper and upload it so that not just book covers but also thesis papers and journals our friends' shelves can have.
+Optical Character Recognition (OCR) software or online OCR tools to extract text from an image. Many free and paid OCR tools are available online that can help you to separate the text. 
 
 <h3>About the Project </h3>
 
@@ -117,7 +117,7 @@ You can see this in the below image when the user uploads the image from the loc
 
 ## Conclusion:
 
-There are many methods to upload book covers, like uploading from our local device or directly pasting the URL from the web. Both ways, it will work with simple alterations in our code.
+There are many methods to upload book covers, like uploading from our local device or directly pasting the URL from the web. Both ways, it will work with simple alterations in our code. Also, Many models are available, but I used Pytesseract as a text extractor despite its difficulties with low-quality images. I wanted to test with py-tesseract because the identifier must perform even if we write text on paper and upload it so that not just book covers but also thesis papers and journals our friends' shelves can have.
 
 <h3> Team members - Deep Learning </h3>
 <p> Jayashree Prabhakaran</p>
