@@ -68,16 +68,16 @@ Apart from that the user can browse all books in the database, that he/she doesn
 </section>
 <h3>Extracting Text from Image</h3>
 
-Optical Character Recognition (OCR) software or online OCR tools to extract text from an image. Many free and paid OCR tools are available online that can help you to separate the text. 
+Optical Character Recognition (OCR) software or online OCR tools to extract text from an image. Many free and paid OCR tools are available online that can help you to separate the text. In this project, Pytesseract is a Python wrapper used as a module for text extraction, an open-source Optical Character Recognition (OCR) engine that converts scanned images of text into machine-encoded text.
 
 <h3>About the Project </h3>
 
-Pytesseract enables the extraction of text from images, PDFs, or scanned documents by utilizing the OCR capabilities.It processes images and identifies the characters and words in the image, converting them into machine-readable text.
+Pytesseract enables the extraction of text from images, PDFs, or scanned documents by utilizing the OCR capabilities. It processes images and identifies the characters and words in the image, converting them into machine-readable text to perform further processes.
 
 
 <h4>Prerequisites</h4>
 
-You will need following packsges:
+You will need the following packages:
 1. pandas
 2. numpy
 3. cv2
@@ -99,7 +99,7 @@ pip install opencv-python
 
 ## Simple Code Execution of my model 
 
-You can see this in the below image when the user uploads the image from the local machine. The detector extracted text from the image Separately.Next, it takes the extracted text as input for further processing by performing a search and match task with the dataset; when it finds a matching text, it brings out all the corresponding data columns as final output.
+You can see this in the below image when the user uploads the image from the local machine. The detector extracted text from the image Separately. Next, it takes the extracted text as input for further processing by performing a search and match task with the dataset; when it finds a matching text, it brings out all the corresponding data columns as final output.
 
 ## Step 1: Identifying the text and extracting
 
