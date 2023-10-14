@@ -53,8 +53,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
 - **Linear Regression Model:** I implemented a linear regression model for predicting book ratings. This model allows users to estimate the ratings of books based on certain features or criteria, providing a valuable tool for book enthusiasts.
 - **Collaborative Recommendation System (Work in Progress):** While the project includes a linear regression model, I am  actively working on implementing a collaborative recommendation system. This feature will provide users with book recommendations based on their preferences and behaviours, enhancing the app's usability.
 -   <h3> Team members - Data Science</h3>
-  <a href="https://www.linkedin.com/in/ntnsain/" target="_blank">Nitin Sain, Lena (part-time contribution)
-  Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</p>
+  <a href="https://www.linkedin.com/in/ntnsain/" target="_blank">Nitin Sain, Lena (part-time contribution)</p>
+  <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</p>
 </section></p>
 
 <section>
