@@ -40,8 +40,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
     The branch initialsetup includes the intial ejs protoype which was remodeled to the MERN prototype on main.
      </p>
      <h3> Team members - Web Development</h3>
-<p> Esther Rauschert (backend) and Alexander (frontend)</p>
-  <p>Mentor: Larry
+<p> <a href="https://www.linkedin.com/in/esther-rauschert-a4761128a/" target="_blank">Esther Rauschert</a> (backend) and Alexander (frontend)</p>
+  <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</a>
 </section>
 
 <section>
@@ -65,8 +65,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
  <a href="https://www.figma.com/file/aV0JFXdP7nezT5nc2NIfQ9/wireframe-web-app?type=design&node-id=0%3A1&mode=design&t=MWjyNCowByrmIhpU-1" target="_blank"> <b>Figma</b> </a>
   </p>
   <h3> Team members - User Experience</h3>
-<p> Jennipher M. Kasemire and Albert Kweku Bening</p>
-  <p>Mentor: Vincent</p>
+<p> <a href="https://www.linkedin.com/in/kasemire" target="_blank">/ Jennipher M. Kasemire</a> and <a href="https://www.linkedin.com/in/albert-kweku-bening-386b9a7a" target="_blank">/ Albert Kweku Bening</a></p>
+  <p>Mentor: <a href="https://www.linkedin.com/in/oluwadamilare-vincent-akinyoyenu" target="_blank">Vincent Oluwadamilare Akinyoyenu</a></p>
 </section>
 
 <section>
