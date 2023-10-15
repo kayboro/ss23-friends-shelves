@@ -66,7 +66,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
   These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
 
     
-  <h1> Project Overview
+  <h2> Project Overview
   
 1. List out the web application features
 2. Create the Information Architecture
@@ -80,11 +80,11 @@ Project progressed with creating of Information Architecture, User Flow, Low and
 
 
     
-<h1> CONCLUSION
+<h2> CONCLUSION
 
   
-The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.
-The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
+</p>The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.Z
+</p>The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
 
     
     ![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/80153432/fdb5142a-6273-4166-afb2-358a8e61ee35)
