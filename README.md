@@ -73,7 +73,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
 3. Progress to User Flow
 4. Move to Figma for Design System, Low/High Fidelity and Prototyping.
 
-<p> We begun with brainstorming as and entire Friends Shelves team, then we (UX team) moved on to do user research whose results you will findin the User research folder (of the UX folder). Results from user research were combined with together with original Friends shelves idea <p><p> formation goal and from this possible features were chosen and presented to the whole team. Final features for Friends Shelves were chosen and agreed upon by the whole Friends Shelves team using the MOSCOW priotization.
+<p> We begun with brainstorming as and entire Friends Shelves team, then we (UX team) moved on to do user research whose results you will findin the User research folder (of the UX folder). Results from user research were combined together with original Friends shelves idea <p><p> formation goal and from this possible features were chosen and presented to the whole team. Final features for Friends Shelves were chosen and agreed upon by the whole Friends Shelves team using the MOSCOW priotization.
 </p> Project progressed with creating of Information Architecture, User Flow, Low and then to high fidelity wireframes which then progressed to protype whose user journey we tested. Please check out our Figma Miro links.
 
 
