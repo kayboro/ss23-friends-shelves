@@ -66,7 +66,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
   These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
 
     
-  <h2> Project Overview
+  <h2> Project Overview </h2>
   
 1. List out the web application features
 2. Create the Information Architecture
@@ -75,12 +75,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
 
 We begun with brainstorming as and entire Friends Shelves team, then we (UX team) moved on to do user research whose results you will findin the User research folder (of the UX folder). Results from user research were combined together with original Friends shelves idea <p><p> formation goal and from this possible features were chosen and presented to the whole team. Final features for Friends Shelves were chosen and agreed upon by the whole Friends Shelves team using the MOSCOW priotization.
 Project progressed with creating of Information Architecture, User Flow, Low and then to high fidelity wireframes which then progressed to protype whose user journey we tested. Please check out our Figma Miro links.
-
-
-
-
     
-<h2> CONCLUSION
+<h2> CONCLUSION </h2>
 
   
 </p>The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.Z
