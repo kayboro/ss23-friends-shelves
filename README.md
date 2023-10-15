@@ -61,7 +61,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
 
 <section>
   <h1>User Experience</h1>
-  <p> Creating User and Testing Design Web App Pages.
+  <p> Designing and Testing a book borrow and lend Web App Pages platform.
+    
     These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
     We Used Figma, Miro, Logo.com, google forms as main tools to design the prototype.
     
