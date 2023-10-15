@@ -63,6 +63,8 @@ Apart from that the user can browse all books in the database, that he/she doesn
   <h1>User Experience</h1>
   <p> Designing and Testing a book borrow and lend Web App Pages platform.
   These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
+
+    
   </p> Project Overview
   
 1. List out the web application features
@@ -74,8 +76,11 @@ Apart from that the user can browse all books in the database, that he/she doesn
 </p> Project progressed with creating of Information Architecture, User Flow, Low and then to high fidelity wireframes which then progressed to protype whose user journey we tested. Please check out our Figma Miro links.
 
 
+
+
     
   CONCLUSION
+
   
 <p>  The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.
 </p> The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
