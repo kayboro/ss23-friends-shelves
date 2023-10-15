@@ -61,7 +61,11 @@ Apart from that the user can browse all books in the database, that he/she doesn
 
 <section>
   <h1>User Experience</h1>
-  <p>
+  <p> Creating User and Testing Design Web App Pages.
+    These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
+    ![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/80153432/fdb5142a-6273-4166-afb2-358a8e61ee35)
+
+    We Used Figma, Miro, Logo.com, google forms as main tools to design the prototype.
  <a href="https://miro.com/app/board/uXjVMuxkwMY=/" target="_blank"> <b>UserFlow in Miro</b> </a>
   </p>
   <p>
