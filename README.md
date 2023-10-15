@@ -41,7 +41,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
     The branch initialsetup includes the intial ejs protoype which was remodeled to the MERN prototype on main.
      </p>
      <h3> Team members - Web Development</h3>
-<p> <a href="https://www.linkedin.com/in/esther-rauschert-a4761128a/" target="_blank">Esther Rauschert</a> (backend) and Alexander (frontend)</p>
+<p> <a href="https://www.linkedin.com/in/esther-rauschert-a4761128a/" target="_blank">Esther Rauschert</a> (backend) and Alexander Sommers (frontend)</p>
   <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</a>
 </section>
 
@@ -66,7 +66,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
   These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
 
     
-  <h2> Project Overview
+  <h1> Project Overview
   
 1. List out the web application features
 2. Create the Information Architecture
@@ -80,11 +80,11 @@ Project progressed with creating of Information Architecture, User Flow, Low and
 
 
     
-<h2> CONCLUSION
+<h1> CONCLUSION
 
   
-</p>The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.Z
-</p>The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
+The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.
+The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
 
     
     ![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/80153432/fdb5142a-6273-4166-afb2-358a8e61ee35)
@@ -156,5 +156,5 @@ You can see this in the below image when the user uploads the image from the loc
 There are many methods to upload book covers, like uploading from our local device or directly pasting the URL from the web. Both ways, it will work with simple alterations in our code. Also, Many models are available, but I used Pytesseract as a text extractor despite its difficulties with low-quality images. I wanted to test with py-tesseract because the identifier must perform even if we write text on paper and upload it so that not just book covers but also thesis papers and journals our friends' shelves can have.
 
 <h3> Team members - Deep Learning </h3>
- <p> <a href="https://www.linkedin.com/in/jayashreeprabakaran" target="_blank">Jayashree Prabhakaran </p>
- <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</p>
+<p> <a href="http://linkedin.com/in/jayashreeprabakaran" target="_blank">Jayashree Prabhakaran</a> 
+ <p>Mentor: Larry </p>
