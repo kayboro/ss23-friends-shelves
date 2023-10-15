@@ -41,7 +41,7 @@ Apart from that the user can browse all books in the database, that he/she doesn
     The branch initialsetup includes the intial ejs protoype which was remodeled to the MERN prototype on main.
      </p>
      <h3> Team members - Web Development</h3>
-<p> <a href="https://www.linkedin.com/in/esther-rauschert-a4761128a/" target="_blank">Esther Rauschert</a> (backend) and Alexander (frontend)</p>
+<p> <a href="https://www.linkedin.com/in/esther-rauschert-a4761128a/" target="_blank">Esther Rauschert</a> (backend) and <a href="https://www.linkedin.com/in/alexander-sommers-187819202/" target="blank">Alexander Sommers</a> (frontend)</p>
   <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</a>
 </section>
 
