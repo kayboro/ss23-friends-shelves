@@ -66,8 +66,10 @@ Apart from that the user can browse all books in the database, that he/she doesn
 
     
     ![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/80153432/fdb5142a-6273-4166-afb2-358a8e61ee35)
-
-    We Used Figma, Miro, Logo.com, google forms as main tools to design the prototype.
+We Used Figma, Miro, Logo.com, google forms as main tools to design the prototype.
+  CONCLUSION
+The UX tasks do not simply end with this report, but continue as the project grows and may
+need constant updates, edits and adjustments.
  <a href="https://miro.com/app/board/uXjVMuxkwMY=/" target="_blank"> <b>UserFlow in Miro</b> </a>
   </p>
   <p>
