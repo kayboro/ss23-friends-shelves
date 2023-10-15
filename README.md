@@ -156,5 +156,5 @@ You can see this in the below image when the user uploads the image from the loc
 There are many methods to upload book covers, like uploading from our local device or directly pasting the URL from the web. Both ways, it will work with simple alterations in our code. Also, Many models are available, but I used Pytesseract as a text extractor despite its difficulties with low-quality images. I wanted to test with py-tesseract because the identifier must perform even if we write text on paper and upload it so that not just book covers but also thesis papers and journals our friends' shelves can have.
 
 <h3> Team members - Deep Learning </h3>
-<p> Jayashree Prabhakaran</p>
- <p>Mentor: Larry </p>
+ <p> <a href="https://www.linkedin.com/in/jayashreeprabakaran" target="_blank">Jayashree Prabhakaran </p>
+ <p>Mentor: <a href="https://www.linkedin.com/in/larrydalmeida/" target="_blank">Larry Almeida</p>
