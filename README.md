@@ -62,14 +62,23 @@ Apart from that the user can browse all books in the database, that he/she doesn
 <section>
   <h1>User Experience</h1>
   <p> Designing and Testing a book borrow and lend Web App Pages platform.
-    
-    These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
-    We Used Figma, Miro, Logo.com, google forms as main tools to design the prototype.
+  These tasks were carried out uniformly between Albert and Jennipher as have been shown on our Miro Board.
+  </p> Project Overview
+  
+1. List out the web application features
+2. Create the Information Architecture
+3. Progress to User Flow
+4. Move to Figma for Design System, Low/High Fidelity and Prototyping.
+
+<p> We begun with brainstorming as and entire Friends Shelves team, then we (UX team) moved on to do user research whose results you will findin the User research folder (of the UX folder). Results from user research were combined with together with original Friends shelves idea <p><p> formation goal and from this possible features were chosen and presented to the whole team. Final features for Friends Shelves were chosen and agreed upon by the whole Friends Shelves team using the MOSCOW priotization.
+</p> Project progressed with creating of Information Architecture, User Flow, Low and then to high fidelity wireframes which then progressed to protype whose user journey we tested. Please check out our Figma Miro links.
+
+
     
   CONCLUSION
   
-The UX tasks do not simply end with this report, but continue as the project grows and may
-need constant updates, edits and adjustments.
+<p>  The most helpful tools that helped us in completing our tasks were;  Figma, Miro, Logo.com, google forms as main tools to design the prototype.
+</p> The UX tasks do not simply end with this report, but continue as the project grows and may need constant updates, edits and adjustments.
 
     
     ![image](https://github.com/TechLabs-Berlin/ss23-friends-shelves/assets/80153432/fdb5142a-6273-4166-afb2-358a8e61ee35)
